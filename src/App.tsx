@@ -139,7 +139,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleOpenEstimate = (serviceType: string = 'Initial Deep Clean') => {
+  const handleOpenEstimate = (serviceType: string = 'Initial Cleaning') => {
     setSelectedService(serviceType);
     setIsEstimateOpen(true);
   };

@@ -15,11 +15,11 @@ export interface ServiceCategory {
   id: string;
   title: string;
   description: string;
-  items: string[];
+  items?: string[];
 }
 
 // TASK 1: DATA COMPONENT SPLIT
-// Category 1: Featured high-revenue drivers
+// Category 1: Featured high-revenue drivers (RETAINED)
 export const featuredServicesData: ServiceCategory[] = [
   {
     id: 'lawn-care',
@@ -47,79 +47,32 @@ export const featuredServicesData: ServiceCategory[] = [
   },
 ];
 
-// Category 2: Standard housekeeping and specialty cleanings
+// Category 2: Standard housekeeping (5 Synthesized Nodes)
 export const standardServicesData: ServiceCategory[] = [
   {
     id: 'initial-cleaning',
-    title: 'Initial Deep Clean',
-    description: 'Top-to-bottom detail cleaning for a spotless home.',
-    items: [
-      'Complete bathroom scrubbing, tile disinfection, and toilet sanitization.',
-      'Kitchen countertops, sink, stovetop, and exterior appliance cleaning.',
-      'Hand-wiping of all baseboards, window blinds, and sills.',
-      'High-dusting of ceiling fans, vents, and light fixtures.',
-      'Full-home floor vacuuming, hard-surface mopping, and wood polishing.',
-    ],
+    title: 'Initial Cleaning',
+    description: 'Deep, top-to-bottom sanitization to establish a spotless baseline for your home.',
   },
   {
-    id: 'weekly-cleaning',
-    title: 'Recurring Maintenance',
-    description: 'Regular housekeeping to keep your home consistently fresh.',
-    items: [
-      'Weekly, bi-weekly, or monthly customized schedules.',
-      'Sanitizing high-touch surfaces, doorknobs, and light switches.',
-      'Disinfecting all bathroom and kitchen surfaces.',
-      'Dusting furniture and complete floor vacuuming and mopping.',
-      'Trash removal and maintaining your deep clean baseline.',
-    ],
+    id: 'recurring-cleaning',
+    title: 'Recurring Cleaning',
+    description: 'Weekly, bi-weekly, or monthly maintenance to keep your home consistently pristine.',
   },
   {
-    id: 'maid-services',
-    title: 'Maid Services',
-    description: 'Custom daily chores, laundry, dishes, and housekeeping help.',
-    items: [
-      'Washing dishes, sink clearing, and unloading the dishwasher.',
-      'Washing, drying, and folding household towels and linens.',
-      'Changing bed sheets and making fresh beds.',
-      'Tidying living areas, toys, and room decluttering.',
-      'Light organizing tailored to your family routines.',
-    ],
-  },
-  {
-    id: 'move-outs',
-    title: 'Move Outs & Make Readies',
-    description: 'Complete move-in and move-out turnaround cleaning service.',
-    items: [
-      'Inside and outside of all kitchen cabinets and drawers.',
-      'Deep sanitizing of all bathrooms, tubs, and vanities.',
-      'Cleaning inside closets, pantries, and storage shelving.',
-      'Hand-wiping baseboards, doors, frames, and blinds.',
-      'Behind appliances and full floor deep cleaning.',
-    ],
+    id: 'cleanouts-make-readys',
+    title: "Cleanouts & Make-Ready's",
+    description: 'Thorough detailing and sanitization tailored for move-ins and move-outs.',
   },
   {
     id: 'short-term-rentals',
-    title: 'Short Term Rentals & Airbnb',
-    description: 'Turnkey turnover cleaning and restocking for Airbnb hosts.',
-    items: [
-      'Rapid turnover sanitization between guest stays.',
-      'Launder linens, wash towels, and remake beds.',
-      'Restocking toiletries, paper towels, and essentials.',
-      'Washing dishes and sanitizing kitchen appliances.',
-      'Inspecting and reporting any property damage.',
-    ],
+    title: 'Short Term Rentals (B&B)',
+    description: 'Complete turnover service including restocking, linen washing, and damage reporting.',
   },
   {
-    id: 'extra-services',
-    title: 'Extra & Additional Services',
-    description: 'Targeted add-on services customized to your exact needs.',
-    items: [
-      'Deep interior cleaning for refrigerators and ovens.',
-      'Interior window washing, tracks, and sliding glass doors.',
-      'Detailed hand-sponge washing for window blinds.',
-      'Sweeping garages, front porches, and back patios.',
-      'Water heater closet dusting and under-furniture vacuuming.',
-    ],
+    id: 'extra-maid-services',
+    title: 'Extra & Maid Services',
+    description: 'Add-on tasks like laundry, dishes, window cleaning, and appliance detailing.',
   },
 ];
 
@@ -232,13 +185,13 @@ const StandardServiceCard: React.FC<StandardServiceCardProps> = ({ service, inde
       ref={ref}
       id={`service-card-${service.id}`}
       style={{ animationDelay: `${(index % 3) * 0.08}s` }}
-      className={`bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between will-change-transform ${
+      className={`bg-white rounded-2xl p-6 md:p-8 border border-slate-200/80 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between will-change-transform ${
         isInView ? 'animate-fade-in-up' : 'opacity-0'
       }`}
     >
       <div>
         {/* Subtle Index Tag */}
-        <div className="flex items-center justify-between gap-2 mb-3">
+        <div className="flex items-center justify-between gap-2 mb-4">
           <span className="text-[11px] font-mono font-medium text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">
             0{index + 1}
           </span>
@@ -250,32 +203,18 @@ const StandardServiceCard: React.FC<StandardServiceCardProps> = ({ service, inde
         {/* Title */}
         <h3
           id={`service-title-${service.id}`}
-          className="font-heading text-xl font-semibold text-slate-900 tracking-tight mb-2"
+          className="font-heading text-xl md:text-2xl font-semibold text-slate-900 tracking-tight mb-3"
         >
           {service.title}
         </h3>
 
-        {/* Minimal Description */}
+        {/* Minimal Description with Inter body font and leading-relaxed */}
         <p
           id={`service-desc-${service.id}`}
-          className="text-sm text-slate-600 leading-relaxed font-normal mb-4"
+          className="font-body text-base text-slate-800 leading-relaxed font-normal mb-6"
         >
           {service.description}
         </p>
-
-        {/* Simplified Bullet List */}
-        <div className="space-y-2 pt-3 border-t border-slate-100 mb-6">
-          {service.items.map((item, itemIdx) => (
-            <div
-              key={itemIdx}
-              id={`service-item-${service.id}-${itemIdx}`}
-              className="flex items-start gap-2 text-xs sm:text-sm text-slate-700"
-            >
-              <RealisticCheckIcon className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
-              <span className="leading-snug">{item}</span>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* Action Button */}
@@ -284,7 +223,7 @@ const StandardServiceCard: React.FC<StandardServiceCardProps> = ({ service, inde
           id={`btn-estimate-${service.id}`}
           type="button"
           onClick={() => onOpenEstimate(service.title)}
-          className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium transition-colors cursor-pointer active:scale-[0.98]"
+          className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-medium transition-colors cursor-pointer active:scale-[0.98]"
         >
           <span>Request Estimate</span>
           <RealisticSparklesIcon className="w-3.5 h-3.5 text-slate-500" />

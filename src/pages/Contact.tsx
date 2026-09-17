@@ -51,7 +51,7 @@ export const Contact: React.FC<ContactPageProps> = ({
     name: '',
     email: '',
     phone: '',
-    service: 'Initial Deep Clean',
+    service: 'Initial Cleaning',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -308,22 +308,11 @@ export const Contact: React.FC<ContactPageProps> = ({
                     onChange={handleChange}
                     className="bg-[#F6FCFF] border-b-2 border-[#0D212C]/10 focus:border-[#051A24] rounded-t-lg p-4 text-sm text-[#051A24] focus:outline-none transition-colors cursor-pointer"
                   >
-                    <option value="Initial Deep Clean">Initial Deep Clean</option>
-                    <option value="Weekly, Bi-weekly & Monthly Maintenance">
-                      Weekly, Bi-weekly & Monthly Maintenance
-                    </option>
-                    <option value="Maid Services">Maid Services</option>
-                    <option value="Move Outs / Clean Outs / Make Readies">
-                      Move Outs / Clean Outs / Make Readies
-                    </option>
-                    <option value="Short Term Rentals / Airbnb">
-                      Short Term Rentals / Airbnb
-                    </option>
-                    <option value="Lawn Care">Lawn Care</option>
-                    <option value="Carpet Cleaning">Carpet Cleaning</option>
-                    <option value="Extra & Additional Custom Services">
-                      Extra & Additional Custom Services
-                    </option>
+                    <option value="Initial Cleaning">Initial Cleaning</option>
+                    <option value="Recurring Cleaning">Recurring Cleaning</option>
+                    <option value="Cleanouts & Make-Readys">Cleanouts & Make-Ready's</option>
+                    <option value="Short Term Rentals">Short Term Rentals</option>
+                    <option value="Extra Services">Extra Services</option>
                   </select>
                 </div>
 

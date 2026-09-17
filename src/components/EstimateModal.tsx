@@ -16,7 +16,7 @@ interface EstimateModalProps {
 export const EstimateModal: React.FC<EstimateModalProps> = ({
   isOpen,
   onClose,
-  initialService = 'Initial Deep Clean',
+  initialService = 'Initial Cleaning',
 }) => {
   const [serviceType, setServiceType] = useState(initialService);
   const [squareFeet, setSquareFeet] = useState<number>(1800);
@@ -162,11 +162,11 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
                   onChange={(e) => setServiceType(e.target.value)}
                   className="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#051A24] bg-slate-50 text-[#051A24]"
                 >
-                  <option value="Initial Deep Clean">Initial Deep Clean (Top-to-Bottom)</option>
-                  <option value="Recurring Maintenance">Recurring Maintenance (Weekly / Bi-Weekly)</option>
-                  <option value="Move Outs & Make Readies">Move Outs & Make Readies</option>
-                  <option value="Short Term Rentals / Airbnb">Short Term Rentals / Airbnb Turnkey</option>
-                  <option value="Mom's Gone Green">Mom's Gone Green (Eco-Friendly)</option>
+                  <option value="Initial Cleaning">Initial Cleaning (Deep Baseline)</option>
+                  <option value="Recurring Cleaning">Recurring Cleaning (Weekly / Bi-Weekly / Monthly)</option>
+                  <option value="Cleanouts & Make-Readys">Cleanouts & Make-Ready's (Move In / Out)</option>
+                  <option value="Short Term Rentals">Short Term Rentals (B&B Turnover)</option>
+                  <option value="Extra Services">Extra & Maid Services</option>
                   <option value="Lawn Care">Lawn Care (Mowing, Edging, Cleanup)</option>
                   <option value="Carpet Cleaning">Carpet Cleaning (Deep Steam Extraction)</option>
                 </select>
