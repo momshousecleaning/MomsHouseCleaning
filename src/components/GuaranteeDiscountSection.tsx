@@ -39,12 +39,12 @@ export const GuaranteeDiscountSection: React.FC<GuaranteeDiscountSectionProps> =
               </div>
 
               {/* Title */}
-              <h3
+              <h2
                 id="guarantee-card-title"
                 className="font-heading text-xl sm:text-2xl md:text-3xl font-semibold text-[#F6FCFF] tracking-tight mb-2 md:mb-4"
               >
                 Our Guarantee
-              </h3>
+              </h2>
 
               {/* Description: 6-10 words */}
               <p
@@ -90,12 +90,12 @@ export const GuaranteeDiscountSection: React.FC<GuaranteeDiscountSectionProps> =
               </div>
 
               {/* Title */}
-              <h3
+              <h2
                 id="discount-card-title"
                 className="font-heading text-xl sm:text-2xl md:text-3xl font-semibold text-[#0D212C] tracking-tight mb-2 md:mb-4"
               >
                 Special Discount!
-              </h3>
+              </h2>
 
               {/* Description: 6-10 words */}
               <p

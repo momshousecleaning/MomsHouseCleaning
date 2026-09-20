@@ -98,7 +98,7 @@ export const About: React.FC<AboutPageProps> = ({
   const { ref: trustCardsRef, isInView: trustCardsInView } = useInViewAnimation(0.1);
 
   const handleCallOrText = () => {
-    window.open('tel:2103808066', '_self');
+    window.open('tel:+12103808066', '_self');
   };
 
   return (
@@ -199,7 +199,7 @@ export const About: React.FC<AboutPageProps> = ({
               <img
                 id="founders-image"
                 src={img01}
-                alt="Glen and Lisa Talley, owners of Mom's House Cleaning"
+                alt="Glen and Lisa Talley, owners of Mom's House Cleaning in San Antonio, TX"
                 loading="lazy"
                 decoding="async"
                 className="w-full h-full aspect-square object-cover rounded-[32px] hover:scale-105 transition-transform duration-700 will-change-transform"

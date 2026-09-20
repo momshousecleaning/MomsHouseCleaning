@@ -255,7 +255,7 @@ export const Services: React.FC<ServicesPageProps> = ({
   const { ref: heroRef, isInView: heroInView } = useInViewAnimation(0.05);
 
   const handleCallOrText = () => {
-    window.open('tel:2103808066', '_self');
+    window.open('tel:+12103808066', '_self');
   };
 
   return (
@@ -293,15 +293,15 @@ export const Services: React.FC<ServicesPageProps> = ({
           Mom's House Cleaning
         </p>
 
-        {/* Heading: Comprehensive Cleaning Solutions */}
+        {/* Heading: Professional Residential Cleaning & Property Maintenance in San Antonio */}
         <h1
           id="services-hero-heading"
           style={{ animationDelay: '0.2s' }}
-          className={`font-heading text-[38px] sm:text-[64px] md:text-[80px] leading-tight text-[#0D212C] font-semibold tracking-tight max-w-4xl mb-6 will-change-transform ${
+          className={`font-heading text-3xl sm:text-5xl md:text-6xl leading-tight text-[#0D212C] font-semibold tracking-tight max-w-4xl mb-6 will-change-transform ${
             heroInView ? 'animate-fade-in-up' : 'opacity-0'
           }`}
         >
-          Comprehensive <span className="block sm:inline">Cleaning Solutions.</span>
+          Professional Residential Cleaning & Property Maintenance in San Antonio
         </h1>
 
         {/* Button: Get a Free Estimate */}

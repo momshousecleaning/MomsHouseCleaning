@@ -213,7 +213,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <a
               id="mobile-nav-call-btn"
-              href="tel:2103808066"
+              href="tel:+12103808066"
               className="w-full min-h-[48px] flex items-center justify-center gap-2.5 text-sm font-semibold text-[#051A24] bg-white hover:bg-slate-50 px-5 py-3.5 rounded-full border border-slate-200/90 shadow-sm active:scale-[0.98] transition-all focus-visible:ring-2 focus-visible:ring-[#051A24]"
             >
               <RealisticPhoneCallIcon className="w-4 h-4" />

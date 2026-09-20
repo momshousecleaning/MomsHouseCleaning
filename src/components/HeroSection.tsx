@@ -16,7 +16,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     <section
       id="hero-section"
       ref={ref}
-      className="relative w-full min-h-[85vh] md:min-h-[90vh] flex flex-col items-center justify-center overflow-hidden py-8 px-4 md:py-24 md:px-12 pt-20 md:pt-28"
+      className="relative w-full min-h-[85vh] md:min-h-[90vh] flex flex-col items-center justify-center overflow-hidden px-4 md:px-12 py-10 md:py-16"
     >
       {/* Video & Contrast Shield Overlay Layers (Z-INDEX 0) */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
@@ -37,52 +37,51 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="absolute inset-0 bg-black/65"></div>
       </div>
 
-      {/* Typography & Interactive Content (Z-INDEX 20) */}
-      <div className="relative z-20 flex flex-col items-center text-center max-w-3xl mx-auto mt-6 md:mt-12 w-full">
-        {/* Logo Text */}
-        <h1
+      {/* Typography & Interactive Content (Z-INDEX 10) */}
+      <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto w-full my-auto">
+        {/* Brand Name (Decorative Display) */}
+        <div
           id="hero-logo"
           style={{ animationDelay: '0.1s' }}
-          className={`font-heading text-[12vw] sm:text-[8vw] md:text-[56px] lg:text-[64px] font-semibold text-white tracking-tight leading-none mb-3 md:mb-4 will-change-transform ${
+          className={`font-heading text-[10vw] sm:text-[7vw] md:text-[52px] lg:text-[60px] font-semibold text-white tracking-tight leading-none mb-2 md:mb-3 will-change-transform ${
             isInView ? 'animate-fade-in-up' : 'opacity-0'
           }`}
         >
           Mom's House Cleaning
-        </h1>
+        </div>
 
         {/* Tagline */}
         <p
           id="hero-tagline"
           style={{ animationDelay: '0.2s' }}
-          className={`font-mono text-xs md:text-sm text-[#F6FCFF]/90 font-medium tracking-wider mb-3 md:mb-2 uppercase will-change-transform ${
+          className={`font-mono text-xs md:text-sm text-[#F6FCFF]/90 font-medium tracking-wider mb-3 md:mb-4 uppercase will-change-transform ${
             isInView ? 'animate-fade-in-up' : 'opacity-0'
           }`}
         >
-          San Antonio Area House Cleaning Service
+          San Antonio Area House Cleaning Service • Family Owned Since 1999
         </p>
 
-        {/* Main Heading */}
-        <div
-          id="hero-heading"
+        {/* Primary Semantic H1 for Homepage SEO */}
+        <h1
+          id="hero-main-title"
           style={{ animationDelay: '0.3s' }}
-          className={`text-2xl sm:text-3xl md:text-[40px] lg:text-[44px] leading-[1.15] md:leading-[1.1] text-white tracking-tight mb-2 will-change-transform ${
+          className={`font-heading text-2xl sm:text-3xl md:text-[38px] lg:text-[44px] leading-[1.2] md:leading-[1.15] text-white font-bold tracking-tight max-w-3xl mb-3 will-change-transform ${
             isInView ? 'animate-fade-in-up' : 'opacity-0'
           }`}
         >
-          <span className="block font-normal">A Passion for</span>
-          <span className="block font-heading font-semibold italic text-white">Cleaning Spaces.</span>
-        </div>
+          Top-Rated House Cleaning & Maid Services in San Antonio, TX
+        </h1>
 
         {/* Description Paragraph */}
         <div
           id="hero-description"
           style={{ animationDelay: '0.4s' }}
-          className={`text-base sm:text-lg md:text-xl text-slate-100 leading-relaxed mt-4 md:mt-6 text-center font-normal max-w-xl will-change-transform ${
+          className={`text-base sm:text-lg md:text-xl text-slate-100 leading-relaxed mt-2 md:mt-3 text-center font-normal max-w-2xl will-change-transform ${
             isInView ? 'animate-fade-in-up' : 'opacity-0'
           }`}
         >
           <p id="hero-desc-1">
-            Top-rated residential and maid cleaning across San Antonio since 1999.
+            Deep cleaning, recurring housekeeping, make-readys, lawn care & carpet cleaning across San Antonio since 1999.
           </p>
         </div>
 
@@ -108,6 +107,24 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           >
             View Our Services
           </button>
+        </div>
+
+        {/* Direct Accessible Phone / Text link */}
+        <div
+          id="hero-phone-container"
+          style={{ animationDelay: '0.6s' }}
+          className={`mt-5 flex items-center justify-center gap-2 text-sm text-slate-200 will-change-transform ${
+            isInView ? 'animate-fade-in-up' : 'opacity-0'
+          }`}
+        >
+          <span className="font-light">Call or Text Us:</span>
+          <a
+            id="hero-phone-link"
+            href="tel:+12103808066"
+            className="font-mono font-semibold text-white underline underline-offset-4 hover:text-blue-200 transition-colors"
+          >
+            (210) 380-8066
+          </a>
         </div>
       </div>
     </section>

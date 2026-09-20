@@ -127,7 +127,7 @@ export const TestimonialSection: React.FC = () => {
           <img
             id="parallax-image"
             src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80"
-            alt="Vertical view of a clean, sunlit home interior with natural light"
+            alt="Sunlit spotless residential home interior cleaned by Mom's House Cleaning in San Antonio"
             loading="lazy"
             referrerPolicy="no-referrer"
             style={{

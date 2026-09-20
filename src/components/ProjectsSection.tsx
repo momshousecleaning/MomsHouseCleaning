@@ -12,28 +12,52 @@ interface ProjectItemData {
 
 const PROJECTS: ProjectItemData[] = [
   {
-    id: 'project-move-outs',
-    title: 'Move Outs & Make Readies',
-    description: 'Turnkey move-out turnovers for tenants, landlords, and realtors.',
+    id: 'project-kitchen-deep-clean',
+    title: 'Kitchen Sanitization & Detail Deep Clean',
+    description: 'Pristine countertops, degreased range hoods, and sanitized sink fixtures.',
+    image:
+      'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1400&q=80',
+    alt: 'Pristine modern kitchen countertop and sink deep cleaned in San Antonio',
+  },
+  {
+    id: 'project-living-room',
+    title: 'Living Room Detail Staging & Housekeeping',
+    description: 'Comprehensive dusting, baseboard detailing, and vacuumed luxury upholstery.',
+    image:
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80',
+    alt: 'Spotless residential living room detail cleaning and staging',
+  },
+  {
+    id: 'project-carpet-extraction',
+    title: 'High-Powered Carpet Fiber Extraction',
+    description: 'Deep heat steam cleaning removing stubborn stains, pet dander, and odors.',
+    image:
+      'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1400&q=80',
+    alt: 'Professional high-powered carpet cleaning and fiber extraction in San Antonio TX',
+  },
+  {
+    id: 'project-bathroom-turnover',
+    title: 'Move-Out Bathroom Detailing & Sanitization',
+    description: 'Hospital-grade sanitization of glass enclosures, grout, tile, and vanities.',
+    image:
+      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1400&q=80',
+    alt: 'Meticulous move-out bathroom sanitization and fixture detailing',
+  },
+  {
+    id: 'project-floor-polishing',
+    title: 'Hard Surface Floor Scrubbing & Polishing',
+    description: 'Restorative tile and hardwood scrubbing revealing high-gloss natural warmth.',
     image:
       'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1400&q=80',
-    alt: 'Immaculate empty renovated apartment ready for tenant move-in',
+    alt: 'Immaculate hard surface floor scrubbing and polishing service',
   },
   {
-    id: 'project-airbnb',
-    title: 'Short Term Rentals / Airbnb',
-    description: 'Turnkey turnover cleaning and restocking for Airbnb hosts.',
+    id: 'project-lawn-edging',
+    title: 'Residential Lawn Mowing & Curb Edging',
+    description: 'Crisp perimeter edging, precise grass trimming, and complete leaf clearing.',
     image:
-      'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1400&q=80',
-    alt: 'Hotel-grade fresh bedroom linen presentation for Airbnb rental',
-  },
-  {
-    id: 'project-green',
-    title: "Mom's Gone Green",
-    description: 'Eco-friendly non-toxic cleaning safe for families and pets.',
-    image:
-      'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=1400&q=80',
-    alt: 'Eco-friendly non-toxic cleaning spray with natural wash cloth',
+      'https://images.unsplash.com/photo-1558904541-efa8c4a08931?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Well-manicured residential lawn mowing and curb edging in San Antonio',
   },
 ];
 
@@ -77,6 +101,10 @@ const ProjectCard: React.FC<{ item: ProjectItemData; index: number }> = ({
           loading="lazy"
           decoding="async"
           referrerPolicy="no-referrer"
+          onError={(e) => {
+            e.currentTarget.src =
+              'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80';
+          }}
           className="w-full h-[240px] sm:h-[340px] md:h-[480px] object-cover rounded-2xl md:rounded-3xl transition-transform duration-700 md:group-hover:scale-[1.02]"
         />
       </div>

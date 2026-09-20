@@ -119,7 +119,7 @@ export const PaymentOptions: React.FC<PaymentOptionsProps> = ({
             </div>
 
             <a
-              href="tel:2103808066"
+              href="tel:+12103808066"
               id="payment-phone-link"
               className="font-heading text-3xl sm:text-4xl text-slate-900 tracking-tight font-semibold hover:opacity-80 transition-opacity"
             >

@@ -17,6 +17,7 @@ import { GuaranteeDiscountSection } from './components/GuaranteeDiscountSection'
 import { ProjectsSection } from './components/ProjectsSection';
 import { PartnerSection } from './components/PartnerSection';
 import { PaymentTermsStrip } from './components/PaymentTermsStrip';
+import { FaqSection } from './components/FaqSection';
 import { Footer } from './components/Footer';
 import { CopyrightBar } from './components/CopyrightBar';
 import { BottomNav } from './components/BottomNav';
@@ -167,7 +168,7 @@ export default function App() {
   };
 
   const handleCallOrText = () => {
-    window.open('tel:2103808066', '_self');
+    window.open('tel:+12103808066', '_self');
   };
 
   return (
@@ -275,7 +276,10 @@ export default function App() {
             {/* 11. PAYMENT METHODS & TERMS STRIP */}
             <PaymentTermsStrip />
 
-            {/* 12. FOOTER */}
+            {/* 12. FAQ ACCORDION SECTION */}
+            <FaqSection onOpenEstimate={() => handleOpenEstimate('General Inquiries')} />
+
+            {/* 13. FOOTER */}
             <Footer
               onOpenEstimate={() => handleOpenEstimate('General Inquiries')}
               onOpenServices={() => navigateTo('services')}

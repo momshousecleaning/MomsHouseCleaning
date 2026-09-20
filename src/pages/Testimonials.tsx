@@ -68,7 +68,7 @@ export const Testimonials: React.FC<TestimonialsPageProps> = ({
   ];
 
   const handleCallOrText = () => {
-    window.open('tel:2103808066', '_self');
+    window.open('tel:+12103808066', '_self');
   };
 
   return (

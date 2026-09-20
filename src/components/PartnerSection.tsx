@@ -213,7 +213,7 @@ export const PartnerSection: React.FC = () => {
         ref={containerRef}
         id="partner-cta-container"
         onMouseMove={handleMouseMove}
-        className={`w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto py-8 sm:py-16 md:py-20 rounded-[24px] sm:rounded-[36px] md:rounded-[40px] bg-white border border-slate-100 shadow-[0_4px_30px_rgba(0,0,0,0.06)] relative overflow-hidden flex flex-col items-center justify-center text-center transition-all duration-700 ${
+        className={`w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto py-8 sm:py-16 md:py-20 rounded-[24px] sm:rounded-[36px] md:rounded-[40px] bg-[#051A24] text-white border border-[#051A24]/30 shadow-[0_20px_50px_rgba(5,26,36,0.3)] relative overflow-hidden flex flex-col items-center justify-center text-center transition-all duration-700 ${
           isInView ? 'animate-fade-in-up' : 'opacity-0'
         }`}
       >
@@ -231,7 +231,7 @@ export const PartnerSection: React.FC = () => {
                 transform: `translate(-50%, -50%) rotate(${item.rotation}deg)`,
                 animation: 'trailFadeOut 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
               }}
-              className="absolute pointer-events-none z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full shadow-md border text-xs font-medium backdrop-blur-sm"
+              className="absolute pointer-events-none z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full shadow-md border text-xs font-medium backdrop-blur-sm bg-white/95 text-[#051A24]"
             >
               <span className={`inline-flex ${config.bg} p-1 rounded-full border`}>
                 <IconComp className="w-4 h-4" />
@@ -245,10 +245,10 @@ export const PartnerSection: React.FC = () => {
 
         {/* Section Header */}
         <div className="flex items-center gap-2 mb-3">
-          <span className="inline-flex p-1.5 rounded-full bg-emerald-50 border border-emerald-200/60">
-            <RealisticSparklesIcon className="w-4 h-4" />
+          <span className="inline-flex p-1.5 rounded-full bg-white/10 border border-white/20">
+            <RealisticSparklesIcon className="w-4 h-4 text-emerald-300" />
           </span>
-          <span className="font-mono text-xs uppercase tracking-widest text-[#051A24]/70 font-semibold">
+          <span className="font-mono text-xs uppercase tracking-widest text-emerald-300 font-semibold">
             Mom's Cleaning in Action
           </span>
         </div>
@@ -256,12 +256,12 @@ export const PartnerSection: React.FC = () => {
         {/* Heading */}
         <h2
           id="partner-heading"
-          className="font-heading text-[38px] sm:text-[48px] md:text-[56px] lg:text-[68px] leading-tight text-[#0D212C] max-w-4xl tracking-tight mb-4 select-none"
+          className="text-3xl md:text-5xl font-black text-white tracking-tight uppercase mb-4 select-none"
         >
           Let us do your dirty work
         </h2>
 
-        <p className="text-sm sm:text-base text-[#273C46] max-w-2xl leading-relaxed mb-8 md:mb-10 font-normal">
+        <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed mb-8 md:mb-10 font-normal">
           From deep home resets to citrus-fresh kitchens and streak-free crystal windows — watch our San Antonio crew deliver the spotless standard.
         </p>
 
@@ -275,32 +275,32 @@ export const PartnerSection: React.FC = () => {
           ))}
         </div>
 
-        {/* CTA Button: Dark pill with circular avatar image + Text Us */}
+        {/* CTA Button: High-contrast pill with circular avatar image + Text Us */}
         <div className="relative z-10 flex flex-col sm:flex-row items-center gap-4">
-          <button
+          <a
             id="btn-text-us-cta"
-            onClick={handleTextAction}
-            className="group flex items-center gap-4 bg-[#051A24] text-white hover:bg-[#0c2e3f] pl-2 pr-8 py-2.5 rounded-full btn-primary-shadow border-t border-white/20 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
+            href="tel:+12103808066"
+            className="group flex items-center gap-4 bg-white text-[#051A24] hover:bg-slate-100 pl-2 pr-8 py-2.5 rounded-full shadow-2xl border border-white/30 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
           >
             <div className="relative">
               <img
                 src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&h=200&q=80"
                 alt="Friendly cleaner specialist"
                 referrerPolicy="no-referrer"
-                className="w-12 h-12 rounded-full object-cover ring-2 ring-white/30"
+                className="w-12 h-12 rounded-full object-cover ring-2 ring-[#051A24]/20"
               />
-              <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-400 border-2 border-[#051A24] rounded-full"></span>
+              <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full"></span>
             </div>
 
             <div className="flex flex-col text-left">
-              <span className="text-xs uppercase font-mono tracking-widest text-[#E0EBF0]/70">
+              <span className="text-xs uppercase font-mono tracking-widest text-[#051A24]/70">
                 Direct SMS Dispatch
               </span>
-              <span className="text-base sm:text-lg font-semibold tracking-tight text-white group-hover:text-amber-200 transition-colors">
+              <span className="text-base sm:text-lg font-bold tracking-tight text-[#051A24] group-hover:text-blue-900 transition-colors">
                 Text Us: 210.380.8066
               </span>
             </div>
-          </button>
+          </a>
         </div>
 
         {/* CSS for trail fade out */}

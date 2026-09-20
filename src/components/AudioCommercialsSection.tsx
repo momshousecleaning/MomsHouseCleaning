@@ -70,9 +70,9 @@ const AudioCard: React.FC<AudioCardProps> = ({
               {subtitle}
             </span>
           </div>
-          <h4 className="font-heading text-xl md:text-2xl font-semibold text-[#0D212C] tracking-tight">
+          <h2 className="font-heading text-xl md:text-2xl font-semibold text-[#0D212C] tracking-tight">
             {title}
-          </h4>
+          </h2>
         </div>
 
         <span className="font-mono text-xs text-[#273C46]/70 bg-slate-50 px-2.5 py-1 rounded-full border border-slate-200/50">
@@ -123,10 +123,13 @@ export const AudioCommercialsSection: React.FC = () => {
             isInView ? 'animate-fade-in-up' : 'opacity-0'
           }`}
         >
-          <div className="flex items-center gap-2 mb-2 text-xs uppercase font-mono tracking-widest text-[#051A24]/60 font-semibold">
+          <h2
+            id="radio-archives-badge"
+            className="flex items-center gap-2 mb-2 text-xs uppercase font-mono tracking-widest text-[#051A24]/60 font-semibold"
+          >
             <RealisticRadioIcon className="w-4 h-4" />
-            <span>Radio Archives & Broadcasts</span>
-          </div>
+            <span>Radio Archives</span>
+          </h2>
 
           <h2
             id="audio-heading"

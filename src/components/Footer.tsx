@@ -27,8 +27,8 @@ export const Footer: React.FC<FooterProps> = ({
       className="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto py-12 border-t border-slate-200/60"
     >
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
-        {/* Left Side: CTA Button */}
-        <div id="footer-cta-col">
+        {/* Left Side: CTA Button & Semantic NAP */}
+        <div id="footer-cta-col" className="flex flex-col gap-5 items-start">
           <Button
             id="footer-btn-estimate"
             variant="primary"
@@ -37,6 +37,26 @@ export const Footer: React.FC<FooterProps> = ({
           >
             Get a Free Estimate
           </Button>
+
+          {/* LocalBusiness Semantic NAP */}
+          <address
+            id="footer-nap"
+            className="not-italic text-sm text-[#051A24]/85 flex flex-col gap-1 font-normal"
+          >
+            <span className="font-heading font-semibold text-base text-[#051A24]">
+              Mom's House Cleaning
+            </span>
+            <span className="text-xs font-mono uppercase tracking-wider text-[#273C46]/80">
+              San Antonio, TX • Since 1999
+            </span>
+            <a
+              id="footer-phone-link"
+              href="tel:+12103808066"
+              className="text-[#051A24] hover:text-blue-700 font-semibold font-mono text-sm underline underline-offset-4 transition-colors inline-block mt-0.5"
+            >
+              (210) 380-8066
+            </a>
+          </address>
         </div>
 
         {/* Right Side: Arrow Icon + Two columns of links */}
@@ -80,6 +100,17 @@ export const Footer: React.FC<FooterProps> = ({
               className="text-left text-base text-[#051A24] hover:opacity-70 transition-opacity font-normal cursor-pointer"
             >
               Contact Us
+            </button>
+            <button
+              onClick={() => {
+                const el = document.getElementById('faq-section');
+                if (el) {
+                  el.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="text-left text-base text-[#051A24] hover:opacity-70 transition-opacity font-normal cursor-pointer"
+            >
+              FAQs
             </button>
           </div>
         </div>

@@ -123,27 +123,39 @@ export const InfoModal: React.FC<InfoModalProps> = ({
             <div className="grid grid-cols-2 gap-3 mb-6">
               <img
                 src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400&q=80"
-                alt="Clean bathroom"
+                alt="Meticulous move-out bathroom sanitization and fixture detailing in San Antonio"
                 referrerPolicy="no-referrer"
-                className="rounded-xl h-32 w-full object-cover shadow-sm"
+                className="rounded-xl h-28 sm:h-32 w-full object-cover shadow-sm"
               />
               <img
                 src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=400&q=80"
-                alt="Clean kitchen"
+                alt="Pristine modern kitchen countertop and sink deep cleaned in San Antonio"
                 referrerPolicy="no-referrer"
-                className="rounded-xl h-32 w-full object-cover shadow-sm"
+                className="rounded-xl h-28 sm:h-32 w-full object-cover shadow-sm"
               />
               <img
                 src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80"
-                alt="Clean living room"
+                alt="Spotless residential living room detail cleaning and staging"
                 referrerPolicy="no-referrer"
-                className="rounded-xl h-32 w-full object-cover shadow-sm"
+                className="rounded-xl h-28 sm:h-32 w-full object-cover shadow-sm"
               />
               <img
-                src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=400&q=80"
-                alt="Pristine interior"
+                src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=400&q=80"
+                alt="Professional high-powered carpet cleaning and fiber extraction in San Antonio TX"
                 referrerPolicy="no-referrer"
-                className="rounded-xl h-32 w-full object-cover shadow-sm"
+                className="rounded-xl h-28 sm:h-32 w-full object-cover shadow-sm"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80"
+                alt="Immaculate hard surface floor scrubbing and polishing service"
+                referrerPolicy="no-referrer"
+                className="rounded-xl h-28 sm:h-32 w-full object-cover shadow-sm"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1592417817098-8f3d6eb22513?auto=format&fit=crop&w=400&q=80"
+                alt="Well-manicured residential lawn mowing and curb edging in San Antonio"
+                referrerPolicy="no-referrer"
+                className="rounded-xl h-28 sm:h-32 w-full object-cover shadow-sm"
               />
             </div>
             <Button variant="primary" size="sm" onClick={() => { onClose(); onOpenEstimate(); }} className="w-full">
@@ -163,7 +175,7 @@ export const InfoModal: React.FC<InfoModalProps> = ({
             </h2>
             <div className="space-y-4 mb-6">
               <a
-                href="tel:2103808066"
+                href="tel:+12103808066"
                 className="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-200/70 text-[#051A24]"
               >
                 <div className="w-10 h-10 rounded-full bg-[#051A24] text-white flex items-center justify-center shrink-0">

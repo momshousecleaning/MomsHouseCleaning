@@ -229,7 +229,7 @@ export const Contact: React.FC<ContactPageProps> = ({
                 {submitStatus === 'error' && (
                   <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-800 text-xs flex flex-col gap-1.5 animate-fade-in">
                     <span className="font-semibold">{errorMessage}</span>
-                    <span>Or call/text us directly at <a href="tel:2103808066" className="underline font-bold">(210) 380-8066</a></span>
+                    <span>Or call/text us directly at <a href="tel:+12103808066" className="underline font-bold">(210) 380-8066</a></span>
                   </div>
                 )}
                 {/* Name */}
@@ -466,7 +466,7 @@ export const Contact: React.FC<ContactPageProps> = ({
             </div>
 
             <a
-              href="tel:2103808066"
+              href="tel:+12103808066"
               id="contact-phone-link"
               className="font-heading text-3xl md:text-4xl text-slate-900 tracking-tight block hover:opacity-80 transition-opacity font-semibold"
             >
