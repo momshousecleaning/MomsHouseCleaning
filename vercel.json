@@ -1,6 +1,26 @@
 {
   "cleanUrls": true,
   "trailingSlash": true,
+  "headers": [
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        }
+      ]
+    }
+  ],
   "redirects": [
     {
       "source": "/:path*",
@@ -14,67 +34,27 @@
       "permanent": true
     },
     {
-      "source": "/services",
+      "source": "/services/:path*",
       "destination": "/our-services/",
       "permanent": true
     },
     {
-      "source": "/services/",
-      "destination": "/our-services/",
-      "permanent": true
-    },
-    {
-      "source": "/contact",
+      "source": "/contact/:path*",
       "destination": "/contact-us/",
       "permanent": true
-    },
-    {
-      "source": "/contact/",
-      "destination": "/contact-us/",
-      "permanent": true
-    },
-    {
-      "source": "/payment-options",
-      "destination": "/payment/",
-      "permanent": true
-    },
-    {
-      "source": "/payment-options/",
-      "destination": "/payment/",
-      "permanent": true
-    }
-  ],
-  "headers": [
-    {
-      "source": "/sitemap.xml",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/xml; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400"
-        }
-      ]
-    },
-    {
-      "source": "/robots.txt",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/plain; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400"
-        }
-      ]
     }
   ],
   "rewrites": [
     {
-      "source": "/((?!sitemap\\.xml|robots\\.txt).*)",
+      "source": "/sitemap.xml",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/robots.txt"
+    },
+    {
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
