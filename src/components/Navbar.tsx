@@ -12,11 +12,11 @@ import {
 
 export const navLinks = [
   { name: 'Home', href: '/', icon: RealisticSparklesIcon },
-  { name: 'Our Services', href: '/services', icon: RealisticCalendarIcon },
-  { name: 'About Us', href: '/about', icon: RealisticShieldCheckIcon },
-  { name: 'Testimonials', href: '/testimonials', icon: RealisticStarIcon },
-  { name: 'Payment Options', href: '/payment', icon: RealisticSparklesIcon },
-  { name: 'Contact Us', href: '/contact', icon: RealisticMailIcon },
+  { name: 'Our Services', href: '/our-services/', icon: RealisticCalendarIcon },
+  { name: 'About Us', href: '/about/', icon: RealisticShieldCheckIcon },
+  { name: 'Testimonials', href: '/testimonials/', icon: RealisticStarIcon },
+  { name: 'Payment Options', href: '/payment/', icon: RealisticSparklesIcon },
+  { name: 'Contact Us', href: '/contact-us/', icon: RealisticMailIcon },
 ];
 
 interface NavbarProps {
@@ -65,17 +65,17 @@ export const Navbar: React.FC<NavbarProps> = ({
     if (onOpenEstimate) {
       onOpenEstimate();
     } else {
-      onNavigate('/contact');
+      onNavigate('/contact-us/');
     }
   };
 
   const isActive = (href: string) => {
     if (href === '/' && currentRoute === 'home') return true;
-    if ((href === '/services' || href === '/#services') && currentRoute === 'services') return true;
-    if ((href === '/contact' || href === '/#contact') && currentRoute === 'contact') return true;
-    if ((href === '/about' || href === '/#about') && currentRoute === 'about') return true;
-    if ((href === '/testimonials' || href === '/#testimonials') && currentRoute === 'testimonials') return true;
-    if ((href === '/payment' || href === '/#payment') && currentRoute === 'payment') return true;
+    if ((href === '/our-services/' || href === '/services' || href === '/services/' || href === '/#services') && currentRoute === 'services') return true;
+    if ((href === '/contact-us/' || href === '/contact' || href === '/contact/' || href === '/#contact') && currentRoute === 'contact') return true;
+    if ((href === '/about/' || href === '/about' || href === '/#about') && currentRoute === 'about') return true;
+    if ((href === '/testimonials/' || href === '/testimonials' || href === '/#testimonials') && currentRoute === 'testimonials') return true;
+    if ((href === '/payment/' || href === '/payment' || href === '/#payment') && currentRoute === 'payment') return true;
     return false;
   };
 

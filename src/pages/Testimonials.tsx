@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { RealisticArrowLeftIcon, RealisticQuoteIcon, RealisticStarIcon } from '../components/RealisticIcons';
 import { Button } from '../components/Button';
 import { useInViewAnimation } from '../hooks/useInViewAnimation';
@@ -73,6 +74,28 @@ export const Testimonials: React.FC<TestimonialsPageProps> = ({
 
   return (
     <div className="min-h-screen w-full bg-[#F4F9FF] text-[#051A24] flex flex-col items-center relative overflow-x-hidden selection:bg-[#051A24] selection:text-white">
+      {/* Route-specific Dynamic Head Management & Canonical Self-Reference */}
+      <Helmet>
+        <title>Client Reviews & Testimonials | Mom's House Cleaning San Antonio</title>
+        <meta
+          name="description"
+          content="Read verified client reviews and ratings for Mom's House Cleaning in San Antonio, TX. Discover why San Antonio homeowners trust our thorough, reliable maids."
+        />
+        <link rel="canonical" href="https://www.momshousecleaning.com/testimonials/" />
+        <meta property="og:title" content="Client Reviews & Testimonials | Mom's House Cleaning San Antonio" />
+        <meta
+          property="og:description"
+          content="Read verified client reviews and ratings for Mom's House Cleaning in San Antonio, TX. Discover why San Antonio homeowners trust our thorough, reliable maids."
+        />
+        <meta property="og:url" content="https://www.momshousecleaning.com/testimonials/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content="Client Reviews & Testimonials | Mom's House Cleaning San Antonio" />
+        <meta
+          name="twitter:description"
+          content="Read verified client reviews and ratings for Mom's House Cleaning in San Antonio, TX. Discover why San Antonio homeowners trust our thorough, reliable maids."
+        />
+      </Helmet>
+
       {/* Breadcrumb / Back Navigation */}
       <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto pt-6 pb-2 flex items-center justify-between">
         <button

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import {
   RealisticArrowLeftIcon,
   RealisticRadioIcon,
@@ -103,6 +104,28 @@ export const About: React.FC<AboutPageProps> = ({
 
   return (
     <div className="min-h-screen w-full bg-[#F4F9FF] text-[#051A24] flex flex-col items-center relative overflow-x-hidden selection:bg-[#051A24] selection:text-white">
+      {/* Route-specific Dynamic Head Management & Canonical Self-Reference */}
+      <Helmet>
+        <title>About Mom's House Cleaning | Trusted San Antonio Maids Since 1999</title>
+        <meta
+          name="description"
+          content="Family-owned and operated in San Antonio, TX since 1999. Licensed, bonded, and insured residential cleaning professionals with a 100% satisfaction guarantee."
+        />
+        <link rel="canonical" href="https://www.momshousecleaning.com/about/" />
+        <meta property="og:title" content="About Mom's House Cleaning | Trusted San Antonio Maids Since 1999" />
+        <meta
+          property="og:description"
+          content="Family-owned and operated in San Antonio, TX since 1999. Licensed, bonded, and insured residential cleaning professionals with a 100% satisfaction guarantee."
+        />
+        <meta property="og:url" content="https://www.momshousecleaning.com/about/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content="About Mom's House Cleaning | Trusted San Antonio Maids Since 1999" />
+        <meta
+          name="twitter:description"
+          content="Family-owned and operated in San Antonio, TX since 1999. Licensed, bonded, and insured residential cleaning professionals with a 100% satisfaction guarantee."
+        />
+      </Helmet>
+
       {/* Breadcrumb / Back Navigation */}
       <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto pt-6 pb-2 flex items-center justify-between">
         <button

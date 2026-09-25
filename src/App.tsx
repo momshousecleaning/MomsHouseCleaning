@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 import Lenis from '@studio-freight/lenis';
 import { GlobalCursorTrail } from './components/GlobalCursorTrail';
 import { Navbar } from './components/Navbar';
@@ -35,10 +36,10 @@ export default function App() {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname.toLowerCase();
       const hash = window.location.hash.toLowerCase();
-      if (path === '/services' || path === '/services/' || hash === '#/services' || hash === '#services') {
+      if (path === '/services' || path === '/services/' || path === '/our-services' || path === '/our-services/' || hash === '#/services' || hash === '#services' || hash === '#our-services') {
         return 'services';
       }
-      if (path === '/contact' || path === '/contact/' || hash === '#/contact' || hash === '#contact') {
+      if (path === '/contact' || path === '/contact/' || path === '/contact-us' || path === '/contact-us/' || hash === '#/contact' || hash === '#contact' || hash === '#contact-us') {
         return 'contact';
       }
       if (path === '/about' || path === '/about/' || hash === '#/about' || hash === '#about') {
@@ -47,7 +48,7 @@ export default function App() {
       if (path === '/testimonials' || path === '/testimonials/' || hash === '#/testimonials' || hash === '#testimonials') {
         return 'testimonials';
       }
-      if (path === '/payment' || path === '/payment/' || path === '/payment-options' || hash === '#/payment' || hash === '#payment') {
+      if (path === '/payment' || path === '/payment/' || path === '/payment-options' || path === '/payment-options/' || hash === '#/payment' || hash === '#payment') {
         return 'payment';
       }
     }
@@ -59,6 +60,24 @@ export default function App() {
   const [isChecklistOpen, setIsChecklistOpen] = useState(false);
   const [infoModalType, setInfoModalType] = useState<'about' | 'payment' | 'photos' | 'contact' | null>(null);
   const lenisRef = React.useRef<Lenis | null>(null);
+
+  // Normalize legacy and unslashed URLs to canonical paths in browser history
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname.toLowerCase();
+      if (path === '/services' || path === '/services/' || path === '/our-services') {
+        window.history.replaceState({}, '', '/our-services/');
+      } else if (path === '/contact' || path === '/contact/' || path === '/contact-us') {
+        window.history.replaceState({}, '', '/contact-us/');
+      } else if (path === '/about') {
+        window.history.replaceState({}, '', '/about/');
+      } else if (path === '/testimonials') {
+        window.history.replaceState({}, '', '/testimonials/');
+      } else if (path === '/payment' || path === '/payment-options' || path === '/payment-options/') {
+        window.history.replaceState({}, '', '/payment/');
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -106,15 +125,15 @@ export default function App() {
     const handlePopState = () => {
       const path = window.location.pathname.toLowerCase();
       const hash = window.location.hash.toLowerCase();
-      if (path === '/services' || path === '/services/' || hash === '#/services' || hash === '#services') {
+      if (path === '/services' || path === '/services/' || path === '/our-services' || path === '/our-services/' || hash === '#/services' || hash === '#services' || hash === '#our-services') {
         setCurrentRoute('services');
-      } else if (path === '/contact' || path === '/contact/' || hash === '#/contact' || hash === '#contact') {
+      } else if (path === '/contact' || path === '/contact/' || path === '/contact-us' || path === '/contact-us/' || hash === '#/contact' || hash === '#contact' || hash === '#contact-us') {
         setCurrentRoute('contact');
       } else if (path === '/about' || path === '/about/' || hash === '#/about' || hash === '#about') {
         setCurrentRoute('about');
       } else if (path === '/testimonials' || path === '/testimonials/' || hash === '#/testimonials' || hash === '#testimonials') {
         setCurrentRoute('testimonials');
-      } else if (path === '/payment' || path === '/payment/' || path === '/payment-options' || hash === '#/payment' || hash === '#payment') {
+      } else if (path === '/payment' || path === '/payment/' || path === '/payment-options' || path === '/payment-options/' || hash === '#/payment' || hash === '#payment') {
         setCurrentRoute('payment');
       } else {
         setCurrentRoute('home');
@@ -128,11 +147,11 @@ export default function App() {
   const navigateTo = (route: 'home' | 'services' | 'contact' | 'about' | 'testimonials' | 'payment') => {
     setCurrentRoute(route);
     let targetUrl = '/';
-    if (route === 'services') targetUrl = '/services';
-    if (route === 'contact') targetUrl = '/contact';
-    if (route === 'about') targetUrl = '/about';
-    if (route === 'testimonials') targetUrl = '/testimonials';
-    if (route === 'payment') targetUrl = '/payment';
+    if (route === 'services') targetUrl = '/our-services/';
+    if (route === 'contact') targetUrl = '/contact-us/';
+    if (route === 'about') targetUrl = '/about/';
+    if (route === 'testimonials') targetUrl = '/testimonials/';
+    if (route === 'payment') targetUrl = '/payment/';
 
     if (window.location.pathname !== targetUrl) {
       window.history.pushState({}, '', targetUrl);
@@ -152,15 +171,15 @@ export default function App() {
   const handleNavbarNavigation = (href: string) => {
     if (href === '/') {
       navigateTo('home');
-    } else if (href === '/services') {
+    } else if (href === '/services' || href === '/our-services' || href === '/our-services/') {
       navigateTo('services');
-    } else if (href === '/#contact' || href === '/contact') {
+    } else if (href === '/#contact' || href === '/contact' || href === '/contact-us' || href === '/contact-us/') {
       navigateTo('contact');
-    } else if (href === '/#about' || href === '/about') {
+    } else if (href === '/#about' || href === '/about' || href === '/about/') {
       navigateTo('about');
-    } else if (href === '/#testimonials' || href === '/testimonials') {
+    } else if (href === '/#testimonials' || href === '/testimonials' || href === '/testimonials/') {
       navigateTo('testimonials');
-    } else if (href === '/#payment' || href === '/payment') {
+    } else if (href === '/#payment' || href === '/payment' || href === '/payment/') {
       navigateTo('payment');
     } else if (href === '/#photos') {
       setInfoModalType('photos');
@@ -172,75 +191,98 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#F4F9FF] text-[#051A24] flex flex-col items-center relative overflow-x-hidden selection:bg-[#051A24] selection:text-white font-body">
-      {/* GLOBAL FLOATING CURSOR TRAIL PHYSICS */}
-      <GlobalCursorTrail />
+    <HelmetProvider>
+      <div className="min-h-screen w-full bg-[#F4F9FF] text-[#051A24] flex flex-col items-center relative overflow-x-hidden selection:bg-[#051A24] selection:text-white font-body">
+        {/* GLOBAL FLOATING CURSOR TRAIL PHYSICS */}
+        <GlobalCursorTrail />
 
-      {/* 0. FIXED DYNAMIC GLASSMORPHISM NAVBAR */}
-      <Navbar 
-        currentRoute={currentRoute} 
-        onNavigate={handleNavbarNavigation}
-        onOpenEstimate={() => handleOpenEstimate('General Inquiries')} 
-      />
+        {/* 0. FIXED DYNAMIC GLASSMORPHISM NAVBAR */}
+        <Navbar 
+          currentRoute={currentRoute} 
+          onNavigate={handleNavbarNavigation}
+          onOpenEstimate={() => handleOpenEstimate('General Inquiries')} 
+        />
 
-      {/* Main Content Area with top offset for fixed navbar */}
-      <div className="w-full pt-20 flex flex-col items-center">
-        {currentRoute === 'services' ? (
-          <Services
-            onNavigateHome={() => navigateTo('home')}
-            onOpenEstimate={handleOpenEstimate}
-            onOpenAbout={() => navigateTo('about')}
-            onOpenPhotos={() => setInfoModalType('photos')}
-            onOpenTestimonials={() => navigateTo('testimonials')}
-            onOpenPayment={() => navigateTo('payment')}
-            onOpenContact={() => navigateTo('contact')}
-          />
-        ) : currentRoute === 'contact' ? (
-          <Contact
-            onNavigateHome={() => navigateTo('home')}
-            onNavigateServices={() => navigateTo('services')}
-            onOpenEstimate={handleOpenEstimate}
-            onOpenAbout={() => navigateTo('about')}
-            onOpenPhotos={() => setInfoModalType('photos')}
-            onOpenTestimonials={() => navigateTo('testimonials')}
-            onOpenPayment={() => navigateTo('payment')}
-            onOpenContact={() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-          />
-        ) : currentRoute === 'about' ? (
-          <About
-            onNavigateHome={() => navigateTo('home')}
-            onNavigateServices={() => navigateTo('services')}
-            onNavigateContact={() => navigateTo('contact')}
-            onOpenEstimate={handleOpenEstimate}
-            onOpenPhotos={() => setInfoModalType('photos')}
-            onOpenTestimonials={() => navigateTo('testimonials')}
-            onOpenPayment={() => navigateTo('payment')}
-          />
-        ) : currentRoute === 'testimonials' ? (
-          <Testimonials
-            onNavigateHome={() => navigateTo('home')}
-            onNavigateServices={() => navigateTo('services')}
-            onNavigateContact={() => navigateTo('contact')}
-            onNavigateAbout={() => navigateTo('about')}
-            onOpenEstimate={handleOpenEstimate}
-            onOpenPhotos={() => setInfoModalType('photos')}
-            onOpenPayment={() => navigateTo('payment')}
-          />
-        ) : currentRoute === 'payment' ? (
-          <PaymentOptions
-            onNavigateHome={() => navigateTo('home')}
-            onNavigateServices={() => navigateTo('services')}
-            onNavigateContact={() => navigateTo('contact')}
-            onNavigateAbout={() => navigateTo('about')}
-            onNavigateTestimonials={() => navigateTo('testimonials')}
-            onOpenEstimate={handleOpenEstimate}
-            onOpenPhotos={() => setInfoModalType('photos')}
-          />
-        ) : (
-          <>
-            {/* 1. HERO SECTION */}
+        {/* Main Content Area with top offset for fixed navbar */}
+        <div className="w-full pt-20 flex flex-col items-center">
+          {currentRoute === 'services' ? (
+            <Services
+              onNavigateHome={() => navigateTo('home')}
+              onOpenEstimate={handleOpenEstimate}
+              onOpenAbout={() => navigateTo('about')}
+              onOpenPhotos={() => setInfoModalType('photos')}
+              onOpenTestimonials={() => navigateTo('testimonials')}
+              onOpenPayment={() => navigateTo('payment')}
+              onOpenContact={() => navigateTo('contact')}
+            />
+          ) : currentRoute === 'contact' ? (
+            <Contact
+              onNavigateHome={() => navigateTo('home')}
+              onNavigateServices={() => navigateTo('services')}
+              onOpenEstimate={handleOpenEstimate}
+              onOpenAbout={() => navigateTo('about')}
+              onOpenPhotos={() => setInfoModalType('photos')}
+              onOpenTestimonials={() => navigateTo('testimonials')}
+              onOpenPayment={() => navigateTo('payment')}
+              onOpenContact={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+          ) : currentRoute === 'about' ? (
+            <About
+              onNavigateHome={() => navigateTo('home')}
+              onNavigateServices={() => navigateTo('services')}
+              onNavigateContact={() => navigateTo('contact')}
+              onOpenEstimate={handleOpenEstimate}
+              onOpenPhotos={() => setInfoModalType('photos')}
+              onOpenTestimonials={() => navigateTo('testimonials')}
+              onOpenPayment={() => navigateTo('payment')}
+            />
+          ) : currentRoute === 'testimonials' ? (
+            <Testimonials
+              onNavigateHome={() => navigateTo('home')}
+              onNavigateServices={() => navigateTo('services')}
+              onNavigateContact={() => navigateTo('contact')}
+              onNavigateAbout={() => navigateTo('about')}
+              onOpenEstimate={handleOpenEstimate}
+              onOpenPhotos={() => setInfoModalType('photos')}
+              onOpenPayment={() => navigateTo('payment')}
+            />
+          ) : currentRoute === 'payment' ? (
+            <PaymentOptions
+              onNavigateHome={() => navigateTo('home')}
+              onNavigateServices={() => navigateTo('services')}
+              onNavigateContact={() => navigateTo('contact')}
+              onNavigateAbout={() => navigateTo('about')}
+              onNavigateTestimonials={() => navigateTo('testimonials')}
+              onOpenEstimate={handleOpenEstimate}
+              onOpenPhotos={() => setInfoModalType('photos')}
+            />
+          ) : (
+            <>
+              {/* Home Canonical & Meta Tags */}
+              <Helmet>
+                <title>House Cleaning San Antonio TX | Mom's House Cleaning</title>
+                <meta
+                  name="description"
+                  content="San Antonio's premier house cleaning & maid service since 1999. Deep cleaning, recurring housekeeping, make-readys, lawn care & carpet cleaning. Call (210) 380-8066."
+                />
+                <link rel="canonical" href="https://www.momshousecleaning.com/" />
+                <meta property="og:title" content="House Cleaning San Antonio TX | Mom's House Cleaning" />
+                <meta
+                  property="og:description"
+                  content="San Antonio's premier house cleaning & maid service since 1999. Deep cleaning, recurring housekeeping, make-readys, lawn care & carpet cleaning. Call (210) 380-8066."
+                />
+                <meta property="og:url" content="https://www.momshousecleaning.com/" />
+                <meta property="og:type" content="website" />
+                <meta name="twitter:title" content="House Cleaning San Antonio TX | Mom's House Cleaning" />
+                <meta
+                  name="twitter:description"
+                  content="San Antonio's premier house cleaning & maid service since 1999. Deep cleaning, recurring housekeeping, make-readys, lawn care & carpet cleaning. Call (210) 380-8066."
+                />
+              </Helmet>
+
+              {/* 1. HERO SECTION */}
             <HeroSection
               onOpenEstimate={() => handleOpenEstimate('Initial Deep Clean')}
               onScrollToServices={() => navigateTo('services')}
@@ -319,5 +361,6 @@ export default function App() {
         onOpenEstimate={() => handleOpenEstimate('General Service')}
       />
     </div>
+    </HelmetProvider>
   );
 }

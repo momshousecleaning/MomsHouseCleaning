@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import {
   RealisticArrowLeftIcon,
@@ -53,6 +54,28 @@ export const PaymentOptions: React.FC<PaymentOptionsProps> = ({
       }}
     >
       <div className="min-h-screen w-full bg-[#F4F9FF] text-[#051A24] flex flex-col items-center relative overflow-x-hidden selection:bg-[#051A24] selection:text-white">
+      {/* Route-specific Dynamic Head Management & Canonical Self-Reference */}
+      <Helmet>
+        <title>Online Payment & Invoicing | Mom's House Cleaning San Antonio</title>
+        <meta
+          name="description"
+          content="Securely pay for your house cleaning service online with Mom's House Cleaning San Antonio. We accept PayPal, Credit/Debit cards, Zelle, Venmo, and CashApp."
+        />
+        <link rel="canonical" href="https://www.momshousecleaning.com/payment/" />
+        <meta property="og:title" content="Online Payment & Invoicing | Mom's House Cleaning San Antonio" />
+        <meta
+          property="og:description"
+          content="Securely pay for your house cleaning service online with Mom's House Cleaning San Antonio. We accept PayPal, Credit/Debit cards, Zelle, Venmo, and CashApp."
+        />
+        <meta property="og:url" content="https://www.momshousecleaning.com/payment/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content="Online Payment & Invoicing | Mom's House Cleaning San Antonio" />
+        <meta
+          name="twitter:description"
+          content="Securely pay for your house cleaning service online with Mom's House Cleaning San Antonio. We accept PayPal, Credit/Debit cards, Zelle, Venmo, and CashApp."
+        />
+      </Helmet>
+
       {/* Breadcrumb / Back Navigation */}
       <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto pt-6 pb-2 flex items-center justify-between">
         <button
