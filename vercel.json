@@ -1,5 +1,4 @@
 {
-  "cleanUrls": true,
   "trailingSlash": true,
   "headers": [
     {
@@ -34,12 +33,12 @@
       "permanent": true
     },
     {
-      "source": "/services/:path*",
+      "source": "/services",
       "destination": "/our-services/",
       "permanent": true
     },
     {
-      "source": "/contact/:path*",
+      "source": "/contact",
       "destination": "/contact-us/",
       "permanent": true
     }
