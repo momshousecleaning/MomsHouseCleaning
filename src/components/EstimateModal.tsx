@@ -19,6 +19,13 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
   initialService = 'Initial Cleaning',
 }) => {
   const [serviceType, setServiceType] = useState(initialService);
+
+  React.useEffect(() => {
+    if (initialService) {
+      setServiceType(initialService);
+    }
+  }, [initialService]);
+
   const [squareFeet, setSquareFeet] = useState<number>(1800);
   const [bedrooms, setBedrooms] = useState<number>(3);
   const [bathrooms, setBathrooms] = useState<number>(2);
@@ -36,12 +43,13 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
   // Approximate pricing calculation for customer guidance
   const calculateEstimatedPrice = () => {
     let base = 120;
-    if (serviceType.includes('Deep')) base = 180;
-    if (serviceType.includes('Move')) base = 220;
-    if (serviceType.includes('Green')) base = 150;
-    if (serviceType.includes('Airbnb')) base = 135;
-    if (serviceType.includes('Yard')) base = 110;
-    if (serviceType.includes('Carpet')) base = 160;
+    if (serviceType === 'Initial Cleaning') base = 180;
+    else if (serviceType === 'Recurring Maintenance') base = 125;
+    else if (serviceType === "Cleanouts & Make-Ready's") base = 220;
+    else if (serviceType === 'Short Term Rentals (B&B)') base = 140;
+    else if (serviceType === 'Extra & Maid Services') base = 110;
+    else if (serviceType === 'Lawn Care') base = 110;
+    else if (serviceType === 'Carpet Cleaning') base = 160;
 
     const sqftAdd = Math.max(0, (squareFeet - 1000) * 0.045);
     const roomAdd = bedrooms * 15 + bathrooms * 25;
@@ -162,13 +170,13 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
                   onChange={(e) => setServiceType(e.target.value)}
                   className="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#051A24] bg-slate-50 text-[#051A24]"
                 >
-                  <option value="Initial Cleaning">Initial Cleaning (Deep Baseline)</option>
-                  <option value="Recurring Cleaning">Recurring Cleaning (Weekly / Bi-Weekly / Monthly)</option>
-                  <option value="Cleanouts & Make-Readys">Cleanouts & Make-Ready's (Move In / Out)</option>
-                  <option value="Short Term Rentals">Short Term Rentals (B&B Turnover)</option>
-                  <option value="Extra Services">Extra & Maid Services</option>
-                  <option value="Lawn Care">Lawn Care (Mowing, Edging, Cleanup)</option>
-                  <option value="Carpet Cleaning">Carpet Cleaning (Deep Steam Extraction)</option>
+                  <option value="Initial Cleaning">Initial Cleaning</option>
+                  <option value="Recurring Maintenance">Recurring Maintenance</option>
+                  <option value="Cleanouts & Make-Ready's">Cleanouts & Make-Ready's</option>
+                  <option value="Short Term Rentals (B&B)">Short Term Rentals (B&B)</option>
+                  <option value="Extra & Maid Services">Extra & Maid Services</option>
+                  <option value="Lawn Care">Lawn Care</option>
+                  <option value="Carpet Cleaning">Carpet Cleaning</option>
                 </select>
               </div>
 

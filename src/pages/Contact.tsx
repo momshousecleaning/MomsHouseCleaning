@@ -26,6 +26,7 @@ interface ContactPageProps {
   onNavigateHome: () => void;
   onNavigateServices: () => void;
   onOpenEstimate: (serviceTitle?: string) => void;
+  initialService?: string;
   onOpenAbout?: () => void;
   onOpenPhotos?: () => void;
   onOpenTestimonials?: () => void;
@@ -37,6 +38,7 @@ export const Contact: React.FC<ContactPageProps> = ({
   onNavigateHome,
   onNavigateServices,
   onOpenEstimate,
+  initialService = 'Initial Cleaning',
   onOpenAbout = () => {},
   onOpenPhotos = () => {},
   onOpenTestimonials = () => {},
@@ -52,9 +54,15 @@ export const Contact: React.FC<ContactPageProps> = ({
     name: '',
     email: '',
     phone: '',
-    service: 'Initial Cleaning',
+    service: initialService,
     message: '',
   });
+
+  React.useEffect(() => {
+    if (initialService) {
+      setFormData((prev) => ({ ...prev, service: initialService }));
+    }
+  }, [initialService]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -101,7 +109,7 @@ export const Contact: React.FC<ContactPageProps> = ({
           name: '',
           email: '',
           phone: '',
-          service: 'Initial Deep Clean',
+          service: 'Initial Cleaning',
           message: '',
         });
       } else {
@@ -332,10 +340,12 @@ export const Contact: React.FC<ContactPageProps> = ({
                     className="bg-[#F6FCFF] border-b-2 border-[#0D212C]/10 focus:border-[#051A24] rounded-t-lg p-4 text-sm text-[#051A24] focus:outline-none transition-colors cursor-pointer"
                   >
                     <option value="Initial Cleaning">Initial Cleaning</option>
-                    <option value="Recurring Cleaning">Recurring Cleaning</option>
-                    <option value="Cleanouts & Make-Readys">Cleanouts & Make-Ready's</option>
-                    <option value="Short Term Rentals">Short Term Rentals</option>
-                    <option value="Extra Services">Extra Services</option>
+                    <option value="Recurring Maintenance">Recurring Maintenance</option>
+                    <option value="Cleanouts & Make-Ready's">Cleanouts & Make-Ready's</option>
+                    <option value="Short Term Rentals (B&B)">Short Term Rentals (B&B)</option>
+                    <option value="Extra & Maid Services">Extra & Maid Services</option>
+                    <option value="Lawn Care">Lawn Care</option>
+                    <option value="Carpet Cleaning">Carpet Cleaning</option>
                   </select>
                 </div>
 

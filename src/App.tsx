@@ -56,7 +56,7 @@ export default function App() {
   });
 
   const [isEstimateOpen, setIsEstimateOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState<string>('Initial Deep Clean');
+  const [selectedService, setSelectedService] = useState<string>('Initial Cleaning');
   const [isChecklistOpen, setIsChecklistOpen] = useState(false);
   const [infoModalType, setInfoModalType] = useState<'about' | 'payment' | 'photos' | 'contact' | null>(null);
   const lenisRef = React.useRef<Lenis | null>(null);
@@ -213,13 +213,17 @@ export default function App() {
               onOpenPhotos={() => setInfoModalType('photos')}
               onOpenTestimonials={() => navigateTo('testimonials')}
               onOpenPayment={() => navigateTo('payment')}
-              onOpenContact={() => navigateTo('contact')}
+              onOpenContact={(serviceTitle) => {
+                if (serviceTitle) setSelectedService(serviceTitle);
+                navigateTo('contact');
+              }}
             />
           ) : currentRoute === 'contact' ? (
             <Contact
               onNavigateHome={() => navigateTo('home')}
               onNavigateServices={() => navigateTo('services')}
               onOpenEstimate={handleOpenEstimate}
+              initialService={selectedService}
               onOpenAbout={() => navigateTo('about')}
               onOpenPhotos={() => setInfoModalType('photos')}
               onOpenTestimonials={() => navigateTo('testimonials')}
@@ -284,7 +288,7 @@ export default function App() {
 
               {/* 1. HERO SECTION */}
             <HeroSection
-              onOpenEstimate={() => handleOpenEstimate('Initial Deep Clean')}
+              onOpenEstimate={() => handleOpenEstimate('Initial Cleaning')}
               onScrollToServices={() => navigateTo('services')}
             />
 
@@ -351,7 +355,7 @@ export default function App() {
       <ChecklistModal
         isOpen={isChecklistOpen}
         onClose={() => setIsChecklistOpen(false)}
-        onOpenEstimate={() => handleOpenEstimate('Initial Deep Clean')}
+        onOpenEstimate={() => handleOpenEstimate('Initial Cleaning')}
       />
 
       <InfoModal

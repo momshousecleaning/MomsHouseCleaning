@@ -75,7 +75,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
                   id="btn-deep-clean-estimate"
                   variant="secondary"
                   size="sm"
-                  onClick={() => onOpenEstimate('Initial Deep Clean')}
+                  onClick={() => onOpenEstimate('Initial Cleaning')}
                   className="!bg-white !text-[#051A24] hover:!bg-[#EAF2F6] shadow-md border border-white w-full sm:w-auto text-center justify-center"
                 >
                   Get Estimate

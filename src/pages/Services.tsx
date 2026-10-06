@@ -10,17 +10,16 @@ import { useInViewAnimation } from '../hooks/useInViewAnimation';
 import { Footer } from '../components/Footer';
 import { CopyrightBar } from '../components/CopyrightBar';
 import { BottomNav } from '../components/BottomNav';
-import { ServiceSearch } from '../components/ServiceSearch';
 
 export interface ServiceCategory {
   id: string;
   title: string;
   description: string;
   items?: string[];
+  bullets?: string[];
 }
 
-// TASK 1: DATA COMPONENT SPLIT
-// Category 1: Featured high-revenue drivers (RETAINED)
+// FEATURED BLOCK: High-revenue specializations rendered in dark mode at top
 export const featuredServicesData: ServiceCategory[] = [
   {
     id: 'lawn-care',
@@ -48,36 +47,61 @@ export const featuredServicesData: ServiceCategory[] = [
   },
 ];
 
-// Category 2: Standard housekeeping (5 Synthesized Nodes)
+// STRICT 5-CARD STANDARD ESSENTIALS (EXACT COPY MAPPING - NO HALLUCINATIONS)
 export const standardServicesData: ServiceCategory[] = [
   {
     id: 'initial-cleaning',
     title: 'Initial Cleaning',
-    description: 'Deep, top-to-bottom sanitization to establish a spotless baseline for your home.',
+    description: 'Deep, top-to-bottom sanitization to establish a spotless baseline.',
+    bullets: [
+      'Bathrooms & Kitchens Deep Clean',
+      'Dusting, Baseboards & Blinds',
+      'Floors & Mirrors Polished',
+    ],
   },
   {
-    id: 'recurring-cleaning',
-    title: 'Recurring Cleaning',
-    description: 'Weekly, bi-weekly, or monthly maintenance to keep your home consistently pristine.',
+    id: 'recurring-maintenance',
+    title: 'Recurring Maintenance',
+    description: 'Weekly, bi-weekly, or monthly upkeep for your home.',
+    bullets: [
+      'High-Touch Disinfection',
+      'Floor Mopping & Vacuuming',
+      'Consistent Surface Maintenance',
+    ],
   },
   {
     id: 'cleanouts-make-readys',
     title: "Cleanouts & Make-Ready's",
-    description: 'Thorough detailing and sanitization tailored for move-ins and move-outs.',
+    description: 'Thorough detailing tailored for move-ins and move-outs.',
+    bullets: [
+      'Inside Cabinets & Drawers',
+      'Inside Ovens & Refrigerators',
+      'Ceiling Fans & Light Fixtures',
+    ],
   },
   {
     id: 'short-term-rentals',
     title: 'Short Term Rentals (B&B)',
-    description: 'Complete turnover service including restocking, linen washing, and damage reporting.',
+    description: 'Turnkey turnover cleaning for 5-star Airbnb hosts.',
+    bullets: [
+      'Restocking Paper Goods & Soap',
+      'Linen Washing & Bed Making',
+      'Property Damage Reporting',
+    ],
   },
   {
     id: 'extra-maid-services',
     title: 'Extra & Maid Services',
-    description: 'Add-on tasks like laundry, dishes, window cleaning, and appliance detailing.',
+    description: 'Custom add-on tasks to handle your specific chores.',
+    bullets: [
+      'Laundry, Dishes & Bed Making',
+      'Inside Appliance Detailing',
+      'Garage, Porch & Patio Sweeping',
+    ],
   },
 ];
 
-// Unified export for backward compatibility
+// Unified export
 export const servicesData: ServiceCategory[] = [
   ...featuredServicesData,
   ...standardServicesData,
@@ -86,10 +110,14 @@ export const servicesData: ServiceCategory[] = [
 interface FeaturedServiceCardProps {
   service: ServiceCategory;
   index: number;
-  onOpenEstimate: (serviceTitle?: string) => void;
+  onRequestEstimate: (serviceTitle: string) => void;
 }
 
-const FeaturedServiceCard: React.FC<FeaturedServiceCardProps> = ({ service, index, onOpenEstimate }) => {
+const FeaturedServiceCard: React.FC<FeaturedServiceCardProps> = ({
+  service,
+  index,
+  onRequestEstimate,
+}) => {
   const { ref, isInView } = useInViewAnimation(0.1);
 
   return (
@@ -121,7 +149,7 @@ const FeaturedServiceCard: React.FC<FeaturedServiceCardProps> = ({ service, inde
           </span>
         </div>
 
-        {/* Prominent Title */}
+        {/* Title */}
         <h3
           id={`service-title-${service.id}`}
           className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-3"
@@ -139,7 +167,7 @@ const FeaturedServiceCard: React.FC<FeaturedServiceCardProps> = ({ service, inde
 
         {/* Highlights Checklist */}
         <div className="space-y-3 pt-5 border-t border-slate-800/80 mb-8">
-          {service.items.map((item, itemIdx) => (
+          {(service.items || []).map((item, itemIdx) => (
             <div
               key={itemIdx}
               id={`service-item-${service.id}-${itemIdx}`}
@@ -161,10 +189,10 @@ const FeaturedServiceCard: React.FC<FeaturedServiceCardProps> = ({ service, inde
         <button
           id={`btn-estimate-${service.id}`}
           type="button"
-          onClick={() => onOpenEstimate(service.title)}
+          onClick={() => onRequestEstimate(service.title)}
           className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm md:text-base shadow-lg transition-all cursor-pointer active:scale-[0.98]"
         >
-          <span>Get Free {service.title} Estimate</span>
+          <span>Request Estimate</span>
           <RealisticSparklesIcon className="w-4 h-4 text-blue-200" />
         </button>
       </div>
@@ -175,10 +203,14 @@ const FeaturedServiceCard: React.FC<FeaturedServiceCardProps> = ({ service, inde
 interface StandardServiceCardProps {
   service: ServiceCategory;
   index: number;
-  onOpenEstimate: (serviceTitle?: string) => void;
+  onRequestEstimate: (serviceTitle: string) => void;
 }
 
-const StandardServiceCard: React.FC<StandardServiceCardProps> = ({ service, index, onOpenEstimate }) => {
+const StandardServiceCard: React.FC<StandardServiceCardProps> = ({
+  service,
+  index,
+  onRequestEstimate,
+}) => {
   const { ref, isInView } = useInViewAnimation(0.1);
 
   return (
@@ -186,7 +218,7 @@ const StandardServiceCard: React.FC<StandardServiceCardProps> = ({ service, inde
       ref={ref}
       id={`service-card-${service.id}`}
       style={{ animationDelay: `${(index % 3) * 0.08}s` }}
-      className={`bg-white rounded-2xl p-6 md:p-8 border border-slate-200/80 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between will-change-transform ${
+      className={`bg-white rounded-2xl p-6 md:p-8 border border-slate-200/90 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between will-change-transform ${
         isInView ? 'animate-fade-in-up' : 'opacity-0'
       }`}
     >
@@ -204,30 +236,48 @@ const StandardServiceCard: React.FC<StandardServiceCardProps> = ({ service, inde
         {/* Title */}
         <h3
           id={`service-title-${service.id}`}
-          className="font-heading text-xl md:text-2xl font-semibold text-slate-900 tracking-tight mb-3"
+          className="font-heading text-xl md:text-2xl font-semibold text-slate-900 tracking-tight mb-2.5"
         >
           {service.title}
         </h3>
 
-        {/* Minimal Description with Inter body font and leading-relaxed */}
+        {/* Description */}
         <p
           id={`service-desc-${service.id}`}
-          className="font-body text-base text-slate-800 leading-relaxed font-normal mb-6"
+          className="font-body text-sm md:text-base text-slate-600 leading-relaxed font-normal mb-5"
         >
           {service.description}
         </p>
+
+        {/* Exact 3 Bullets List */}
+        {service.bullets && (
+          <ul className="space-y-2.5 pt-4 border-t border-slate-100 mb-6">
+            {service.bullets.map((bullet, bIdx) => (
+              <li
+                key={bIdx}
+                id={`bullet-${service.id}-${bIdx}`}
+                className="flex items-start gap-2.5 text-sm text-slate-700 leading-snug"
+              >
+                <span className="p-0.5 rounded-full bg-emerald-50 text-emerald-600 shrink-0 mt-0.5">
+                  <RealisticCheckIcon className="w-3.5 h-3.5" />
+                </span>
+                <span className="font-medium text-slate-800">{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
-      {/* Action Button */}
+      {/* Action Button: Opens the Contact / Estimate Form */}
       <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
         <button
           id={`btn-estimate-${service.id}`}
           type="button"
-          onClick={() => onOpenEstimate(service.title)}
-          className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-medium transition-colors cursor-pointer active:scale-[0.98]"
+          onClick={() => onRequestEstimate(service.title)}
+          className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#051A24] hover:bg-[#0D212C] text-white text-xs sm:text-sm font-semibold tracking-wide transition-all shadow-sm hover:shadow cursor-pointer active:scale-[0.98]"
         >
           <span>Request Estimate</span>
-          <RealisticSparklesIcon className="w-3.5 h-3.5 text-slate-500" />
+          <RealisticSparklesIcon className="w-3.5 h-3.5 text-blue-200" />
         </button>
       </div>
     </div>
@@ -241,7 +291,7 @@ interface ServicesPageProps {
   onOpenPhotos?: () => void;
   onOpenTestimonials?: () => void;
   onOpenPayment?: () => void;
-  onOpenContact?: () => void;
+  onOpenContact?: (serviceTitle?: string) => void;
 }
 
 export const Services: React.FC<ServicesPageProps> = ({
@@ -257,6 +307,14 @@ export const Services: React.FC<ServicesPageProps> = ({
 
   const handleCallOrText = () => {
     window.open('tel:+12103808066', '_self');
+  };
+
+  const handleRequestEstimate = (serviceTitle: string) => {
+    if (onOpenEstimate) {
+      onOpenEstimate(serviceTitle);
+    } else if (onOpenContact) {
+      onOpenContact();
+    }
   };
 
   return (
@@ -299,13 +357,12 @@ export const Services: React.FC<ServicesPageProps> = ({
         </span>
       </div>
 
-      {/* Hero Section (Minimalist) */}
+      {/* Hero Section */}
       <section
         ref={heroRef}
         id="services-hero-section"
         className="w-full py-8 px-4 md:pt-16 md:pb-12 md:px-12 mx-auto flex flex-col items-center text-center"
       >
-        {/* Tagline */}
         <p
           id="services-hero-tagline"
           style={{ animationDelay: '0.1s' }}
@@ -316,7 +373,6 @@ export const Services: React.FC<ServicesPageProps> = ({
           Mom's House Cleaning
         </p>
 
-        {/* Heading: Professional Residential Cleaning & Property Maintenance in San Antonio */}
         <h1
           id="services-hero-heading"
           style={{ animationDelay: '0.2s' }}
@@ -327,7 +383,6 @@ export const Services: React.FC<ServicesPageProps> = ({
           Professional Residential Cleaning & Property Maintenance in San Antonio
         </h1>
 
-        {/* Button: Get a Free Estimate */}
         <div
           id="services-hero-btn-container"
           style={{ animationDelay: '0.3s' }}
@@ -339,7 +394,7 @@ export const Services: React.FC<ServicesPageProps> = ({
             id="btn-services-hero-estimate"
             variant="primary"
             size="lg"
-            onClick={() => onOpenEstimate('Comprehensive Services')}
+            onClick={() => handleRequestEstimate('Initial Cleaning')}
             className="shadow-md"
           >
             Get a Free Estimate
@@ -347,8 +402,7 @@ export const Services: React.FC<ServicesPageProps> = ({
         </div>
       </section>
 
-      {/* TASK 2: ARCHITECT THE "FEATURED" TOP BLOCK */}
-      {/* Immediately below the page's main H1 header, 2-column grid specifically for Featured services */}
+      {/* TASK 2: MAINTAIN THE FEATURED BLOCK (DARK MODE AT TOP) */}
       <section
         id="featured-services-section"
         className="w-full max-w-7xl px-4 md:px-12 mx-auto mb-12 md:mb-16"
@@ -368,21 +422,13 @@ export const Services: React.FC<ServicesPageProps> = ({
               key={service.id}
               service={service}
               index={index}
-              onOpenEstimate={onOpenEstimate}
+              onRequestEstimate={handleRequestEstimate}
             />
           ))}
         </div>
       </section>
 
-      {/* Subtle Section Divider */}
-      <div className="w-full max-w-7xl px-4 md:px-12 mx-auto my-6 md:my-8">
-        <div className="border-t border-slate-200/80" />
-      </div>
-
-      {/* Interactive Hybrid Service Search & Filtering Engine */}
-      <ServiceSearch onOpenEstimate={onOpenEstimate} />
-
-      {/* TASK 3: ARCHITECT THE "STANDARD" BOTTOM BLOCK */}
+      {/* TASK 3: RENDER EXACTLY 5 STANDARD CARDS (CLEAN, MINIMALIST 3-COLUMN GRID) */}
       <section
         id="standard-services-section"
         className="w-full max-w-7xl py-8 px-4 md:py-16 md:px-12 mx-auto"
@@ -399,14 +445,14 @@ export const Services: React.FC<ServicesPageProps> = ({
           </p>
         </div>
 
-        {/* Minimal clean 3-column grid below header */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+        {/* Minimal clean 3-column grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full">
           {standardServicesData.map((service, index) => (
             <StandardServiceCard
               key={service.id}
               service={service}
               index={index}
-              onOpenEstimate={onOpenEstimate}
+              onRequestEstimate={handleRequestEstimate}
             />
           ))}
         </div>
@@ -414,7 +460,7 @@ export const Services: React.FC<ServicesPageProps> = ({
 
       {/* Footer */}
       <Footer
-        onOpenEstimate={() => onOpenEstimate('General Inquiries')}
+        onOpenEstimate={() => handleRequestEstimate('Initial Cleaning')}
         onOpenServices={() => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
