@@ -21,6 +21,11 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
       className="w-full py-8 px-4 md:py-24 md:px-12"
     >
       <div className="w-full mx-auto flex flex-col items-center">
+        {/* Hourly Billing Notice */}
+        <div className="mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 text-slate-800 text-xs font-mono font-medium border border-slate-200/80">
+          <span>Simple Hourly Billing • <strong>*2-hour minimum applies to all services*</strong></span>
+        </div>
+
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
           {/* Card 1: Dark (Initial Deep Clean) */}
           <div
@@ -57,16 +62,24 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
             </div>
 
             <div>
-              {/* Price */}
-              <div className="mb-4 md:mb-6 pt-4 border-t border-white/10 flex items-baseline justify-between">
-                <div>
-                  <span className="block text-xl sm:text-2xl font-medium text-[#F6FCFF] tracking-tight">
-                    Custom Quote
-                  </span>
-                  <span className="text-[10px] sm:text-xs text-[#E0EBF0]/70 uppercase tracking-wider font-mono">
-                    One-time Baseline
+              {/* Hourly Price & Disclaimer */}
+              <div className="mb-4 md:mb-6 pt-4 border-t border-white/10 flex flex-col gap-1.5">
+                <div className="flex items-baseline justify-between">
+                  <div>
+                    <span className="block text-2xl sm:text-3xl font-bold text-[#F6FCFF] tracking-tight font-mono">
+                      $50 / Hour
+                    </span>
+                    <span className="text-[10px] sm:text-xs text-[#E0EBF0]/70 uppercase tracking-wider font-mono">
+                      Hourly Rate • One-time Baseline
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-mono uppercase bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full border border-emerald-500/30">
+                    Transparent
                   </span>
                 </div>
+                <p className="text-[11px] sm:text-xs text-amber-300 font-mono italic">
+                  *2-hour minimum applies to all services*
+                </p>
               </div>
 
               {/* Two buttons */}
@@ -128,16 +141,24 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
             </div>
 
             <div>
-              {/* Price */}
-              <div className="mb-4 md:mb-6 pt-4 border-t border-slate-100 flex items-baseline justify-between">
-                <div>
-                  <span className="block text-xl sm:text-2xl font-medium text-[#0D212C] tracking-tight">
-                    Custom Quote
-                  </span>
-                  <span className="text-[10px] sm:text-xs text-[#273C46]/70 uppercase tracking-wider font-mono">
-                    Ongoing Upkeep
+              {/* Hourly Price & Disclaimer */}
+              <div className="mb-4 md:mb-6 pt-4 border-t border-slate-100 flex flex-col gap-1.5">
+                <div className="flex items-baseline justify-between">
+                  <div>
+                    <span className="block text-2xl sm:text-3xl font-bold text-[#0D212C] tracking-tight font-mono">
+                      $45 / Hour
+                    </span>
+                    <span className="text-[10px] sm:text-xs text-[#273C46]/70 uppercase tracking-wider font-mono">
+                      Hourly Rate • Ongoing Upkeep
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-mono uppercase bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full border border-blue-200">
+                    Best Value
                   </span>
                 </div>
+                <p className="text-[11px] sm:text-xs text-amber-700 font-mono italic">
+                  *2-hour minimum applies to all services*
+                </p>
               </div>
 
               {/* Button */}

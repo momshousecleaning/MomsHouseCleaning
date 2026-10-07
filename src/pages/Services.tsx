@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
   RealisticCheckIcon,
@@ -10,6 +10,7 @@ import { useInViewAnimation } from '../hooks/useInViewAnimation';
 import { Footer } from '../components/Footer';
 import { CopyrightBar } from '../components/CopyrightBar';
 import { BottomNav } from '../components/BottomNav';
+import { SERVICE_CHECKLISTS } from '../components/ServiceChecklistModal';
 
 export interface ServiceCategory {
   id: string;
@@ -17,6 +18,7 @@ export interface ServiceCategory {
   description: string;
   items?: string[];
   bullets?: string[];
+  hourlyRate?: string;
 }
 
 // FEATURED BLOCK: High-revenue specializations rendered in dark mode at top
@@ -24,6 +26,7 @@ export const featuredServicesData: ServiceCategory[] = [
   {
     id: 'lawn-care',
     title: 'Lawn Care',
+    hourlyRate: '$55 / Hour',
     description: 'Lawn mowing, edging, and outdoor debris yard cleanup.',
     items: [
       'Precision lawn mowing and curb edging.',
@@ -36,6 +39,7 @@ export const featuredServicesData: ServiceCategory[] = [
   {
     id: 'carpet-cleaning',
     title: 'Carpet Cleaning',
+    hourlyRate: '$60 / Hour',
     description: 'Deep steam extraction to restore and revitalize carpets.',
     items: [
       'Commercial hot water steam fiber extraction.',
@@ -52,6 +56,7 @@ export const standardServicesData: ServiceCategory[] = [
   {
     id: 'initial-cleaning',
     title: 'Initial Cleaning',
+    hourlyRate: '$50 / Hour',
     description: 'Deep, top-to-bottom sanitization to establish a spotless baseline.',
     bullets: [
       'Bathrooms & Kitchens Deep Clean',
@@ -62,6 +67,7 @@ export const standardServicesData: ServiceCategory[] = [
   {
     id: 'recurring-maintenance',
     title: 'Recurring Maintenance',
+    hourlyRate: '$45 / Hour',
     description: 'Weekly, bi-weekly, or monthly upkeep for your home.',
     bullets: [
       'High-Touch Disinfection',
@@ -72,6 +78,7 @@ export const standardServicesData: ServiceCategory[] = [
   {
     id: 'cleanouts-make-readys',
     title: "Cleanouts & Make-Ready's",
+    hourlyRate: '$55 / Hour',
     description: 'Thorough detailing tailored for move-ins and move-outs.',
     bullets: [
       'Inside Cabinets & Drawers',
@@ -82,6 +89,7 @@ export const standardServicesData: ServiceCategory[] = [
   {
     id: 'short-term-rentals',
     title: 'Short Term Rentals (B&B)',
+    hourlyRate: '$48 / Hour',
     description: 'Turnkey turnover cleaning for 5-star Airbnb hosts.',
     bullets: [
       'Restocking Paper Goods & Soap',
@@ -92,6 +100,7 @@ export const standardServicesData: ServiceCategory[] = [
   {
     id: 'extra-maid-services',
     title: 'Extra & Maid Services',
+    hourlyRate: '$45 / Hour',
     description: 'Custom add-on tasks to handle your specific chores.',
     bullets: [
       'Laundry, Dishes & Bed Making',
@@ -110,22 +119,30 @@ export const servicesData: ServiceCategory[] = [
 interface FeaturedServiceCardProps {
   service: ServiceCategory;
   index: number;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
   onRequestEstimate: (serviceTitle: string) => void;
 }
 
 const FeaturedServiceCard: React.FC<FeaturedServiceCardProps> = ({
   service,
   index,
+  isExpanded,
+  onToggleExpand,
   onRequestEstimate,
 }) => {
   const { ref, isInView } = useInViewAnimation(0.1);
+  const checklistData =
+    SERVICE_CHECKLISTS[service.id] ||
+    SERVICE_CHECKLISTS[service.title] ||
+    [];
 
   return (
     <div
       ref={ref}
       id={`service-card-${service.id}`}
       style={{ animationDelay: `${index * 0.1}s` }}
-      className={`relative rounded-3xl p-8 md:p-10 bg-slate-900 text-white border-2 border-blue-500 shadow-2xl transition-all duration-300 hover:-translate-y-1 will-change-transform flex flex-col justify-between ${
+      className={`relative rounded-3xl p-8 md:p-10 bg-slate-900 text-white border-2 border-blue-500 shadow-2xl transition-all duration-300 will-change-transform flex flex-col justify-between ${
         isInView ? 'animate-fade-in-up' : 'opacity-0'
       }`}
     >
@@ -160,13 +177,23 @@ const FeaturedServiceCard: React.FC<FeaturedServiceCardProps> = ({
         {/* Description */}
         <p
           id={`service-desc-${service.id}`}
-          className="text-base md:text-lg text-slate-200 leading-relaxed font-normal mb-6"
+          className="text-base md:text-lg text-slate-200 leading-relaxed font-normal mb-1"
         >
           {service.description}
         </p>
 
+        {/* Dynamic Accordion Toggle for Featured Card */}
+        <button
+          type="button"
+          id={`btn-view-more-${service.id}`}
+          onClick={onToggleExpand}
+          className="mt-4 text-sm font-semibold text-blue-300 hover:text-blue-100 underline underline-offset-4 cursor-pointer inline-flex items-center gap-1 text-left transition-colors"
+        >
+          <span>{isExpanded ? 'View Less ↑' : 'View More ↓'}</span>
+        </button>
+
         {/* Highlights Checklist */}
-        <div className="space-y-3 pt-5 border-t border-slate-800/80 mb-8">
+        <div className="space-y-3 pt-5 border-t border-slate-800/80 mb-6 mt-5">
           {(service.items || []).map((item, itemIdx) => (
             <div
               key={itemIdx}
@@ -182,10 +209,62 @@ const FeaturedServiceCard: React.FC<FeaturedServiceCardProps> = ({
             </div>
           ))}
         </div>
+
+        {/* Inline Accordion for Featured Card */}
+        {isExpanded && checklistData.length > 0 && (
+          <div
+            id={`accordion-checklist-${service.id}`}
+            className="mt-4 pt-4 border-t border-slate-800 bg-slate-950/70 -mx-8 md:-mx-10 px-8 md:px-10 py-5 rounded-b-2xl space-y-5 transition-all duration-300 mb-6"
+          >
+            <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-300">
+                Detailed Scope of Work
+              </span>
+              <span className="text-[11px] font-mono text-emerald-300 bg-emerald-950/80 px-2.5 py-0.5 rounded-full border border-emerald-800/60 font-medium">
+                {service.title}
+              </span>
+            </div>
+
+            {checklistData.map((section, secIdx) => (
+              <div key={secIdx} className="space-y-2">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-100 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                  <span>{section.category}</span>
+                </h4>
+                <ul className="space-y-1.5 pl-3">
+                  {section.items.map((item, itemIdx) => (
+                    <li
+                      key={itemIdx}
+                      className="text-xs sm:text-sm text-slate-300 flex items-start gap-2 leading-relaxed"
+                    >
+                      <span className="text-emerald-400 font-bold mt-0.5">✓</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Hourly Pricing & Minimum Disclaimer */}
+      <div className="pt-5 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 mt-4">
+        <div>
+          <span className="text-xl sm:text-2xl font-bold font-mono text-white tracking-tight">
+            {service.hourlyRate || '$55 / Hour'}
+          </span>
+          <span className="block text-[10px] font-mono uppercase tracking-wider text-blue-300">
+            Dedicated Hourly Rate
+          </span>
+        </div>
+        <span className="text-[11px] sm:text-xs text-blue-200/90 font-mono italic">
+          *2-hour minimum applies to all services*
+        </span>
       </div>
 
       {/* Action CTA */}
-      <div className="pt-6 border-t border-slate-800/80 flex items-center justify-between">
+      <div className="pt-4 border-t border-slate-800/60 flex items-center justify-between mt-3">
         <button
           id={`btn-estimate-${service.id}`}
           type="button"
@@ -203,22 +282,30 @@ const FeaturedServiceCard: React.FC<FeaturedServiceCardProps> = ({
 interface StandardServiceCardProps {
   service: ServiceCategory;
   index: number;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
   onRequestEstimate: (serviceTitle: string) => void;
 }
 
 const StandardServiceCard: React.FC<StandardServiceCardProps> = ({
   service,
   index,
+  isExpanded,
+  onToggleExpand,
   onRequestEstimate,
 }) => {
   const { ref, isInView } = useInViewAnimation(0.1);
+  const checklistData =
+    SERVICE_CHECKLISTS[service.id] ||
+    SERVICE_CHECKLISTS[service.title] ||
+    [];
 
   return (
     <div
       ref={ref}
       id={`service-card-${service.id}`}
       style={{ animationDelay: `${(index % 3) * 0.08}s` }}
-      className={`bg-white rounded-2xl p-6 md:p-8 border border-slate-200/90 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between will-change-transform ${
+      className={`bg-white rounded-2xl p-6 md:p-8 border border-slate-200/90 shadow-sm transition-all duration-300 flex flex-col justify-between will-change-transform ${
         isInView ? 'animate-fade-in-up' : 'opacity-0'
       }`}
     >
@@ -244,14 +331,24 @@ const StandardServiceCard: React.FC<StandardServiceCardProps> = ({
         {/* Description */}
         <p
           id={`service-desc-${service.id}`}
-          className="font-body text-sm md:text-base text-slate-600 leading-relaxed font-normal mb-5"
+          className="font-body text-sm md:text-base text-slate-600 leading-relaxed font-normal mb-1"
         >
           {service.description}
         </p>
 
+        {/* Dynamic Accordion Toggle Button */}
+        <button
+          type="button"
+          id={`btn-view-more-${service.id}`}
+          onClick={onToggleExpand}
+          className="mt-4 text-sm font-semibold text-slate-600 hover:text-blue-600 underline underline-offset-4 cursor-pointer inline-flex items-center gap-1 transition-colors"
+        >
+          <span>{isExpanded ? 'View Less ↑' : 'View More ↓'}</span>
+        </button>
+
         {/* Exact 3 Bullets List */}
         {service.bullets && (
-          <ul className="space-y-2.5 pt-4 border-t border-slate-100 mb-6">
+          <ul className="space-y-2.5 pt-5 border-t border-slate-100 mb-6 mt-4">
             {service.bullets.map((bullet, bIdx) => (
               <li
                 key={bIdx}
@@ -266,10 +363,62 @@ const StandardServiceCard: React.FC<StandardServiceCardProps> = ({
             ))}
           </ul>
         )}
+
+        {/* TASK 3: INLINE UI RENDERING (THE ACCORDION) */}
+        {isExpanded && (
+          <div
+            id={`accordion-checklist-${service.id}`}
+            className="mt-4 pt-4 border-t border-slate-200 bg-slate-50/80 -mx-6 md:-mx-8 px-6 md:px-8 py-5 rounded-b-xl space-y-5 transition-all duration-300"
+          >
+            <div className="flex items-center justify-between pb-2 border-b border-slate-200/80">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-600">
+                Detailed Scope of Work
+              </span>
+              <span className="text-[11px] font-mono text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full font-medium">
+                {service.title}
+              </span>
+            </div>
+
+            {checklistData.map((section, secIdx) => (
+              <div key={secIdx} className="space-y-2">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                  <span>{section.category}</span>
+                </h4>
+                <ul className="space-y-1.5 pl-3">
+                  {section.items.map((item, itemIdx) => (
+                    <li
+                      key={itemIdx}
+                      className="text-xs sm:text-sm text-slate-700 flex items-start gap-2 leading-relaxed"
+                    >
+                      <span className="text-emerald-500 font-bold mt-0.5">✓</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Hourly Pricing & Minimum Disclaimer */}
+      <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mt-4">
+        <div>
+          <span className="text-lg sm:text-xl font-bold font-mono text-slate-900 tracking-tight">
+            {service.hourlyRate || '$45 / Hour'}
+          </span>
+          <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-500">
+            Transparent Hourly Rate
+          </span>
+        </div>
+        <span className="text-[11px] text-slate-500 font-mono italic">
+          *2-hour minimum applies to all services*
+        </span>
       </div>
 
       {/* Action Button: Opens the Contact / Estimate Form */}
-      <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+      <div className="pt-3 border-t border-slate-100 flex items-center justify-between mt-3">
         <button
           id={`btn-estimate-${service.id}`}
           type="button"
@@ -304,6 +453,10 @@ export const Services: React.FC<ServicesPageProps> = ({
   onOpenContact = () => {},
 }) => {
   const { ref: heroRef, isInView: heroInView } = useInViewAnimation(0.05);
+
+  // TASK 2: ARCHITECT THE EXPANDABLE CARD STATE
+  const [expandedStandardIndex, setExpandedStandardIndex] = useState<number | null>(null);
+  const [expandedFeaturedIndex, setExpandedFeaturedIndex] = useState<number | null>(null);
 
   const handleCallOrText = () => {
     window.open('tel:+12103808066', '_self');
@@ -400,6 +553,17 @@ export const Services: React.FC<ServicesPageProps> = ({
             Get a Free Estimate
           </Button>
         </div>
+
+        {/* Hourly Rate Banner */}
+        <div
+          style={{ animationDelay: '0.35s' }}
+          className={`mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs sm:text-sm font-medium will-change-transform ${
+            heroInView ? 'animate-fade-in-up' : 'opacity-0'
+          }`}
+        >
+          <RealisticSparklesIcon className="w-4 h-4 text-blue-600" />
+          <span>Straightforward Hourly Rates • <strong>*2-hour minimum applies to all services*</strong></span>
+        </div>
       </section>
 
       {/* TASK 2: MAINTAIN THE FEATURED BLOCK (DARK MODE AT TOP) */}
@@ -422,6 +586,12 @@ export const Services: React.FC<ServicesPageProps> = ({
               key={service.id}
               service={service}
               index={index}
+              isExpanded={expandedFeaturedIndex === index}
+              onToggleExpand={() =>
+                setExpandedFeaturedIndex(
+                  expandedFeaturedIndex === index ? null : index
+                )
+              }
               onRequestEstimate={handleRequestEstimate}
             />
           ))}
@@ -445,13 +615,19 @@ export const Services: React.FC<ServicesPageProps> = ({
           </p>
         </div>
 
-        {/* Minimal clean 3-column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full">
+        {/* Minimal clean 3-column grid with inline expandable cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full items-start">
           {standardServicesData.map((service, index) => (
             <StandardServiceCard
               key={service.id}
               service={service}
               index={index}
+              isExpanded={expandedStandardIndex === index}
+              onToggleExpand={() =>
+                setExpandedStandardIndex(
+                  expandedStandardIndex === index ? null : index
+                )
+              }
               onRequestEstimate={handleRequestEstimate}
             />
           ))}

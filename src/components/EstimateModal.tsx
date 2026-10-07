@@ -26,7 +26,6 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
     }
   }, [initialService]);
 
-  const [squareFeet, setSquareFeet] = useState<number>(1800);
   const [bedrooms, setBedrooms] = useState<number>(3);
   const [bathrooms, setBathrooms] = useState<number>(2);
   const [hasPets, setHasPets] = useState<boolean>(false);
@@ -38,30 +37,54 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  React.useEffect(() => {
+    if (!isOpen) return;
+
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
-  // Approximate pricing calculation for customer guidance
-  const calculateEstimatedPrice = () => {
-    let base = 120;
-    if (serviceType === 'Initial Cleaning') base = 180;
-    else if (serviceType === 'Recurring Maintenance') base = 125;
-    else if (serviceType === "Cleanouts & Make-Ready's") base = 220;
-    else if (serviceType === 'Short Term Rentals (B&B)') base = 140;
-    else if (serviceType === 'Extra & Maid Services') base = 110;
-    else if (serviceType === 'Lawn Care') base = 110;
-    else if (serviceType === 'Carpet Cleaning') base = 160;
+  // Hourly rates and time-based calculations
+  const getHourlyRate = () => {
+    if (serviceType === 'Initial Cleaning') return 50;
+    if (serviceType === 'Recurring Maintenance') return 45;
+    if (serviceType === "Cleanouts & Make-Ready's") return 55;
+    if (serviceType === 'Short Term Rentals (B&B)') return 48;
+    if (serviceType === 'Extra & Maid Services') return 45;
+    if (serviceType === 'Lawn Care') return 55;
+    if (serviceType === 'Carpet Cleaning') return 60;
+    return 45;
+  };
 
-    const sqftAdd = Math.max(0, (squareFeet - 1000) * 0.045);
-    const roomAdd = bedrooms * 15 + bathrooms * 25;
-    const petAdd = hasPets ? 20 : 0;
-    const total = Math.round(base + sqftAdd + roomAdd + petAdd);
+  const calculateHoursAndTime = () => {
+    let baseHours = 2.0;
+    if (serviceType === 'Initial Cleaning') baseHours = 2.5;
+    else if (serviceType === "Cleanouts & Make-Ready's") baseHours = 3.0;
+
+    const roomHours = bedrooms * 0.5 + bathrooms * 0.5;
+    const petHours = hasPets ? 0.5 : 0;
+    const rawHours = baseHours + roomHours + petHours;
+    // Strict 2-hour minimum applies to all services
+    const estimatedHours = Math.max(2, Math.round(rawHours * 2) / 2);
+    const hourlyRate = getHourlyRate();
+
+    const low = Math.round(estimatedHours * hourlyRate);
+    const high = Math.round((estimatedHours + 0.5) * hourlyRate);
+
     return {
-      low: Math.round(total * 0.9),
-      high: Math.round(total * 1.1),
+      hourlyRate,
+      estimatedHours,
+      low,
+      high,
     };
   };
 
-  const estimate = calculateEstimatedPrice();
+  const estimate = calculateHoursAndTime();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,7 +97,7 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
       email: email || 'not-provided@estimate.local',
       phone: phone,
       service: serviceType,
-      message: `Estimate Calculation: $${estimate.low} - $${estimate.high} | SqFt: ${squareFeet} | Beds: ${bedrooms} | Baths: ${bathrooms} | Pets: ${hasPets ? 'Yes' : 'No'} | Location: ${address || 'San Antonio'}`,
+      message: `Hourly Estimate: $${estimate.low} - $${estimate.high} (${estimate.estimatedHours} hrs @ $${estimate.hourlyRate}/hr) | Beds: ${bedrooms} | Baths: ${bathrooms} | Pets: ${hasPets ? 'Yes' : 'No'} | Location: ${address || 'San Antonio'} (*2-hour minimum applies)`,
     };
 
     try {
@@ -103,14 +126,14 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-[#051A24]/70 backdrop-blur-sm animate-fade-in-up overflow-y-auto"
+      className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 backdrop-blur-sm"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
       data-lenis-prevent="true"
     >
       <div
-        className="relative w-full max-w-md bg-white rounded-[20px] md:rounded-[24px] shadow-2xl p-4 sm:p-5 md:p-6 my-auto max-h-[82vh] overflow-y-auto border border-slate-200/80 overscroll-contain"
+        className="relative w-full max-w-md bg-white rounded-[20px] md:rounded-[24px] shadow-2xl p-4 sm:p-5 md:p-6 my-auto max-h-[90vh] overflow-y-auto border border-slate-200/80 overscroll-contain"
         role="dialog"
         aria-modal="true"
         data-lenis-prevent="true"
@@ -134,9 +157,14 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
             <p className="text-xs sm:text-sm text-[#273C46] max-w-sm mb-4 leading-relaxed">
               Thank you, <span className="font-semibold text-[#051A24]">{name || 'neighbor'}</span>. Mom's House Cleaning dispatch will text or call you at <span className="font-semibold text-[#051A24]">{phone || 'your number'}</span> shortly with your guaranteed custom quote.
             </p>
-            <div className="bg-slate-50 rounded-xl p-3 w-full text-left mb-4 border border-slate-200/60 font-mono text-[11px] text-[#051A24]">
-              <p className="font-bold mb-0.5">Service: {serviceType}</p>
-              <p>Estimated Range: ${estimate.low} – ${estimate.high}</p>
+            <div className="bg-slate-50 rounded-xl p-3.5 w-full text-left mb-4 border border-slate-200/60 font-mono text-[11px] text-[#051A24] space-y-1">
+              <p className="font-bold text-xs mb-1">Service: {serviceType}</p>
+              <p>Billing Rate: <span className="font-semibold">${estimate.hourlyRate} / Hour</span></p>
+              <p>Estimated Time: <span className="font-semibold">{estimate.estimatedHours} Hours</span></p>
+              <p>Estimated Range: <span className="font-semibold">${estimate.low} – ${estimate.high}</span></p>
+              <p className="text-amber-700 font-semibold pt-1 border-t border-slate-200/60">
+                *2-hour minimum applies to all services*
+              </p>
               <p>Location: {address || 'San Antonio, TX'}</p>
               <p className="text-emerald-700 mt-1 font-semibold">✓ Price Beat Guarantee Active</p>
             </div>
@@ -170,48 +198,34 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
                   onChange={(e) => setServiceType(e.target.value)}
                   className="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#051A24] bg-slate-50 text-[#051A24]"
                 >
-                  <option value="Initial Cleaning">Initial Cleaning</option>
-                  <option value="Recurring Maintenance">Recurring Maintenance</option>
-                  <option value="Cleanouts & Make-Ready's">Cleanouts & Make-Ready's</option>
-                  <option value="Short Term Rentals (B&B)">Short Term Rentals (B&B)</option>
-                  <option value="Extra & Maid Services">Extra & Maid Services</option>
-                  <option value="Lawn Care">Lawn Care</option>
-                  <option value="Carpet Cleaning">Carpet Cleaning</option>
+                  <option value="Initial Cleaning">Initial Cleaning ($50/hr)</option>
+                  <option value="Recurring Maintenance">Recurring Maintenance ($45/hr)</option>
+                  <option value="Cleanouts & Make-Ready's">Cleanouts & Make-Ready's ($55/hr)</option>
+                  <option value="Short Term Rentals (B&B)">Short Term Rentals (B&B) ($48/hr)</option>
+                  <option value="Extra & Maid Services">Extra & Maid Services ($45/hr)</option>
+                  <option value="Lawn Care">Lawn Care ($55/hr)</option>
+                  <option value="Carpet Cleaning">Carpet Cleaning ($60/hr)</option>
                 </select>
               </div>
 
-              {/* Home Details Grid */}
-              <div className="grid grid-cols-3 gap-2">
+              {/* Home Details Grid (Bedrooms & Bathrooms Time Estimator) */}
+              <div className="grid grid-cols-2 gap-2.5">
                 <div>
                   <label className="block text-[11px] font-mono uppercase text-[#051A24] mb-0.5 font-semibold">
-                    Sq. Footage
-                  </label>
-                  <input
-                    type="number"
-                    min="400"
-                    max="10000"
-                    step="100"
-                    value={squareFeet}
-                    onChange={(e) => setSquareFeet(Number(e.target.value))}
-                    className="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#051A24]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-mono uppercase text-[#051A24] mb-0.5 font-semibold">
-                    Bedrooms
+                    Number of Bedrooms
                   </label>
                   <input
                     type="number"
                     min="1"
                     max="10"
                     value={bedrooms}
-                    onChange={(e) => setBedrooms(Number(e.target.value))}
-                    className="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#051A24]"
+                    onChange={(e) => setBedrooms(Math.max(1, Number(e.target.value)))}
+                    className="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#051A24] bg-white text-[#051A24]"
                   />
                 </div>
                 <div>
                   <label className="block text-[11px] font-mono uppercase text-[#051A24] mb-0.5 font-semibold">
-                    Bathrooms
+                    Number of Bathrooms
                   </label>
                   <input
                     type="number"
@@ -219,8 +233,8 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
                     max="8"
                     step="0.5"
                     value={bathrooms}
-                    onChange={(e) => setBathrooms(Number(e.target.value))}
-                    className="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#051A24]"
+                    onChange={(e) => setBathrooms(Math.max(1, Number(e.target.value)))}
+                    className="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#051A24] bg-white text-[#051A24]"
                   />
                 </div>
               </div>
@@ -238,19 +252,33 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
                 </span>
               </label>
 
-              {/* Live Estimate Card */}
-              <div className="bg-[#051A24] text-white rounded-xl p-3 flex items-center justify-between shadow-inner">
-                <div>
-                  <span className="text-[10px] text-[#E0EBF0]/70 font-mono uppercase">
-                    Approximate Estimate
-                  </span>
-                  <div className="text-lg sm:text-xl font-bold tracking-tight text-white">
-                    ${estimate.low} – ${estimate.high}
+              {/* Live Hourly Estimate Card */}
+              <div className="bg-[#051A24] text-white rounded-xl p-3 flex flex-col gap-2 shadow-inner">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] text-[#E0EBF0]/70 font-mono uppercase">
+                      Estimated Time & Rate
+                    </span>
+                    <div className="text-sm font-semibold text-white font-mono">
+                      ~{estimate.estimatedHours} hrs @ ${estimate.hourlyRate} / Hour
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[10px] text-[#E0EBF0]/70 font-mono uppercase block">
+                      Estimated Total
+                    </span>
+                    <div className="text-lg sm:text-xl font-bold tracking-tight text-white font-mono">
+                      ${estimate.low} – ${estimate.high}
+                    </div>
                   </div>
                 </div>
-                <div className="text-right">
+
+                <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px]">
+                  <span className="text-amber-300 font-mono font-medium">
+                    *2-hour minimum applies to all services*
+                  </span>
                   <span className="inline-flex items-center gap-1 text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-mono">
-                    <RealisticSparklesIcon className="w-3 h-3" /> Family Owned
+                    <RealisticSparklesIcon className="w-3 h-3" /> Hourly Rate
                   </span>
                 </div>
               </div>

@@ -66,6 +66,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body.overflow-hidden {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
 .font-heading {
   font-family: var(--font-heading, "Archivo Black", sans-serif) !important;
   line-height: 1.15 !important;

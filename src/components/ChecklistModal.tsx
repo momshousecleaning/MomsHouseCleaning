@@ -63,66 +63,112 @@ export const ChecklistModal: React.FC<ChecklistModalProps> = ({
   onClose,
   onOpenEstimate,
 }) => {
+  // TASK 2: REACT TAILWIND BODY LOCK
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+    return () => document.body.classList.remove('overflow-hidden');
+  }, [isOpen]);
+
+  // Escape key listener
+  React.useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
+    // 1. THE ISOLATED WRAPPER (Blocks everything else)
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-[#051A24]/70 backdrop-blur-sm animate-fade-in-up overflow-y-auto"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 isolate"
+      role="dialog"
+      aria-modal="true"
       data-lenis-prevent="true"
     >
+      {/* 2. THE BACKDROP (Clicking this closes the modal) */}
       <div
-        className="relative w-full max-w-lg bg-white rounded-[20px] md:rounded-[24px] shadow-2xl p-4 sm:p-5 md:p-6 my-auto max-h-[82vh] overflow-y-auto border border-slate-200/80 overscroll-contain"
-        role="dialog"
-        aria-modal="true"
+        className="absolute inset-0 bg-black/70 backdrop-blur-sm cursor-pointer"
+        onClick={onClose}
+      />
+
+      {/* 3. THE CONTAINER (Fixed height, completely hides overflow) */}
+      <div
+        className="relative z-10 w-full max-w-2xl max-h-[85vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden"
         data-lenis-prevent="true"
       >
-        <button
-          onClick={onClose}
-          className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 p-1.5 rounded-full hover:bg-slate-100 text-slate-500 hover:text-[#051A24] transition-colors cursor-pointer z-10"
-          aria-label="Close checklist"
-        >
-          <RealisticXIcon className="w-4 h-4" />
-        </button>
-
-        <div className="mb-4">
-          <div className="flex items-center gap-1.5 mb-0.5 text-[11px] uppercase font-mono tracking-widest text-emerald-700 font-semibold">
-            <RealisticShieldCheckIcon className="w-4 h-4" />
-            <span>Mom's 50-Point Standard</span>
+        {/* 4. THE HEADER (Fixed at the top) */}
+        <div className="flex justify-between items-center p-5 border-b border-gray-200 bg-white shrink-0">
+          <div>
+            <div className="flex items-center gap-1.5 mb-0.5 text-[11px] uppercase font-mono tracking-widest text-emerald-700 font-semibold">
+              <RealisticShieldCheckIcon className="w-4 h-4" />
+              <span>Mom's 50-Point Standard</span>
+            </div>
+            <h3 className="text-xl font-heading font-bold text-slate-900 leading-tight">
+              Initial Deep Clean Master Checklist
+            </h3>
           </div>
-          <h2 className="font-heading text-xl md:text-2xl font-semibold text-[#0D212C] tracking-tight">
-            Initial Deep Clean Master Checklist
-          </h2>
-          <p className="text-[11px] sm:text-xs text-[#273C46] mt-0.5">
+          <button
+            onClick={onClose}
+            className="text-3xl text-slate-400 hover:text-red-500 leading-none cursor-pointer p-1"
+            aria-label="Close checklist"
+          >
+            &times;
+          </button>
+        </div>
+
+        {/* 5. THE SCROLLABLE BODY (The Magic Fix - CRITICAL: overscroll-contain) */}
+        <div className="p-5 md:p-8 overflow-y-auto overscroll-contain flex-1">
+          <p className="text-xs sm:text-sm text-[#273C46] mb-6 leading-relaxed bg-slate-50 p-3.5 rounded-xl border border-slate-100">
             Our systematic process leaves no corner untouched in your San Antonio home.
           </p>
+
+          <div className="space-y-5">
+            {CHECKLIST_CATEGORIES.map((cat, idx) => (
+              <div key={idx} className="bg-slate-50/80 rounded-xl p-4 border border-slate-200/60">
+                <h4 className="font-heading text-base font-bold text-[#051A24] mb-3 border-b border-slate-200 pb-1.5">
+                  {cat.title}
+                </h4>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {cat.items.map((item, iIdx) => (
+                    <li key={iIdx} className="flex items-start gap-2 text-xs sm:text-sm text-[#273C46]">
+                      <RealisticCheckCircle2Icon className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="space-y-6">
-          {CHECKLIST_CATEGORIES.map((cat, idx) => (
-            <div key={idx} className="bg-slate-50/80 rounded-2xl p-4 border border-slate-200/60">
-              <h3 className="font-heading text-lg font-semibold text-[#051A24] mb-3 border-b border-slate-200 pb-1.5">
-                {cat.title}
-              </h3>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {cat.items.map((item, iIdx) => (
-                  <li key={iIdx} className="flex items-start gap-2 text-xs sm:text-sm text-[#273C46]">
-                    <RealisticCheckCircle2Icon className="w-4 h-4 shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-8 pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* Action Footer (Fixed at the bottom of the container) */}
+        <div className="p-4 sm:px-6 sm:py-4 border-t border-gray-200 bg-gray-50/90 shrink-0 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-xs text-[#273C46] font-mono">
             Family-Owned • Fully Bonded & Insured
           </div>
-          <div className="flex gap-3 w-full sm:w-auto">
+          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-1/2 sm:w-auto px-4 py-2 rounded-full border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs sm:text-sm font-semibold transition-colors cursor-pointer"
+            >
+              Close
+            </button>
             <Button
               variant="primary"
               size="sm"
@@ -130,7 +176,7 @@ export const ChecklistModal: React.FC<ChecklistModalProps> = ({
                 onClose();
                 onOpenEstimate();
               }}
-              className="w-full sm:w-auto"
+              className="w-1/2 sm:w-auto"
             >
               Book This Deep Clean
             </Button>

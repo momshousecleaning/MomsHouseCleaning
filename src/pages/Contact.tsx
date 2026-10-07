@@ -363,9 +363,12 @@ export const Contact: React.FC<ContactPageProps> = ({
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tell us about your home (bedrooms, bathrooms, square footage, specific priorities)..."
+                    placeholder="Tell us about your home (bedrooms, bathrooms, estimated hours needed, specific priorities)..."
                     className="bg-[#F6FCFF] border-b-2 border-[#0D212C]/10 focus:border-[#051A24] rounded-t-lg p-4 text-sm text-[#051A24] placeholder:text-[#273C46]/40 focus:outline-none transition-colors resize-y"
                   />
+                  <span className="text-[11px] font-mono text-slate-500 italic mt-0.5">
+                    *2-hour minimum applies to all services*
+                  </span>
                 </div>
 
                 {/* Submit Button */}
@@ -380,6 +383,9 @@ export const Contact: React.FC<ContactPageProps> = ({
                 >
                   {isSubmitting ? 'Sending Request...' : 'Get a Free Estimate'}
                 </Button>
+                <p className="text-[11px] font-mono text-slate-500 text-center mt-1">
+                  Simple hourly billing • *2-hour minimum applies to all services*
+                </p>
               </form>
             )}
           </div>
