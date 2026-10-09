@@ -178,7 +178,7 @@ export const ChecklistModal: React.FC<ChecklistModalProps> = ({
               }}
               className="w-1/2 sm:w-auto"
             >
-              Book This Deep Clean
+              Request a Custom Quote
             </Button>
           </div>
         </div>

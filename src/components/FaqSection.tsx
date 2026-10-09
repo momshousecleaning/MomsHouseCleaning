@@ -175,7 +175,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ onOpenEstimate }) => {
             onClick={onOpenEstimate}
             className="shrink-0 bg-[#051A24] text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-[#0c2e3f] transition-all shadow-sm active:scale-95 cursor-pointer"
           >
-            Get Free Estimate
+            Get Your Free Estimate
           </button>
         )}
       </div>

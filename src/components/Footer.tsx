@@ -35,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({
             size="md"
             onClick={onOpenEstimate}
           >
-            Get a Free Estimate
+            Get Your Free Estimate
           </Button>
 
           {/* LocalBusiness Semantic NAP */}

@@ -70,7 +70,7 @@ export const InfoModal: React.FC<InfoModalProps> = ({
             <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center">
               <span className="text-xs font-mono text-[#051A24]">Bexar County DBA Registered</span>
               <Button variant="primary" size="sm" onClick={() => { onClose(); onOpenEstimate(); }}>
-                Get Estimate
+                Request a Custom Quote
               </Button>
             </div>
           </div>
@@ -159,7 +159,7 @@ export const InfoModal: React.FC<InfoModalProps> = ({
               />
             </div>
             <Button variant="primary" size="sm" onClick={() => { onClose(); onOpenEstimate(); }} className="w-full">
-              Get Your Space Cleaned
+              Get Your Free Estimate
             </Button>
           </div>
         )}
@@ -210,7 +210,7 @@ export const InfoModal: React.FC<InfoModalProps> = ({
             </div>
 
             <Button variant="primary" size="sm" onClick={() => { onClose(); onOpenEstimate(); }} className="w-full">
-              Request Free Estimate
+              Request a Custom Quote
             </Button>
           </div>
         )}

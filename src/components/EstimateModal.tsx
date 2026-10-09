@@ -49,43 +49,6 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
 
   if (!isOpen) return null;
 
-  // Hourly rates and time-based calculations
-  const getHourlyRate = () => {
-    if (serviceType === 'Initial Cleaning') return 50;
-    if (serviceType === 'Recurring Maintenance') return 45;
-    if (serviceType === "Cleanouts & Make-Ready's") return 55;
-    if (serviceType === 'Short Term Rentals (B&B)') return 48;
-    if (serviceType === 'Extra & Maid Services') return 45;
-    if (serviceType === 'Lawn Care') return 55;
-    if (serviceType === 'Carpet Cleaning') return 60;
-    return 45;
-  };
-
-  const calculateHoursAndTime = () => {
-    let baseHours = 2.0;
-    if (serviceType === 'Initial Cleaning') baseHours = 2.5;
-    else if (serviceType === "Cleanouts & Make-Ready's") baseHours = 3.0;
-
-    const roomHours = bedrooms * 0.5 + bathrooms * 0.5;
-    const petHours = hasPets ? 0.5 : 0;
-    const rawHours = baseHours + roomHours + petHours;
-    // Strict 2-hour minimum applies to all services
-    const estimatedHours = Math.max(2, Math.round(rawHours * 2) / 2);
-    const hourlyRate = getHourlyRate();
-
-    const low = Math.round(estimatedHours * hourlyRate);
-    const high = Math.round((estimatedHours + 0.5) * hourlyRate);
-
-    return {
-      hourlyRate,
-      estimatedHours,
-      low,
-      high,
-    };
-  };
-
-  const estimate = calculateHoursAndTime();
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -97,7 +60,7 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
       email: email || 'not-provided@estimate.local',
       phone: phone,
       service: serviceType,
-      message: `Hourly Estimate: $${estimate.low} - $${estimate.high} (${estimate.estimatedHours} hrs @ $${estimate.hourlyRate}/hr) | Beds: ${bedrooms} | Baths: ${bathrooms} | Pets: ${hasPets ? 'Yes' : 'No'} | Location: ${address || 'San Antonio'} (*2-hour minimum applies)`,
+      message: `Custom Quote Request | Service: ${serviceType} | Beds: ${bedrooms} | Baths: ${bathrooms} | Pets: ${hasPets ? 'Yes' : 'No'} | Location: ${address || 'San Antonio'} | Customized to fit home's unique needs`,
     };
 
     try {
@@ -114,7 +77,7 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
       if (response.ok && result.success) {
         setIsSubmitted(true);
       } else {
-        setErrorMessage(result.message || 'Error submitting estimate. Please call (210) 380-8066.');
+        setErrorMessage(result.message || 'Error submitting quote request. Please call (210) 380-8066.');
       }
     } catch (error) {
       console.error('Web3Forms estimate submit error:', error);
@@ -159,14 +122,13 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
             </p>
             <div className="bg-slate-50 rounded-xl p-3.5 w-full text-left mb-4 border border-slate-200/60 font-mono text-[11px] text-[#051A24] space-y-1">
               <p className="font-bold text-xs mb-1">Service: {serviceType}</p>
-              <p>Billing Rate: <span className="font-semibold">${estimate.hourlyRate} / Hour</span></p>
-              <p>Estimated Time: <span className="font-semibold">{estimate.estimatedHours} Hours</span></p>
-              <p>Estimated Range: <span className="font-semibold">${estimate.low} – ${estimate.high}</span></p>
-              <p className="text-amber-700 font-semibold pt-1 border-t border-slate-200/60">
-                *2-hour minimum applies to all services*
+              <p>Home Details: <span className="font-semibold">{bedrooms} Bedrooms • {bathrooms} Bathrooms</span></p>
+              <p>Quote Status: <span className="font-semibold text-emerald-700">Customized Estimate in Progress</span></p>
+              <p className="text-slate-600 pt-1 border-t border-slate-200/60">
+                Customized to fit your home's unique needs
               </p>
               <p>Location: {address || 'San Antonio, TX'}</p>
-              <p className="text-emerald-700 mt-1 font-semibold">✓ Price Beat Guarantee Active</p>
+              <p className="text-emerald-700 mt-1 font-semibold">✓ Price Match Promise Active</p>
             </div>
             <Button variant="primary" size="sm" onClick={onClose}>
               Done
@@ -180,7 +142,7 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
                 <span>San Antonio Custom Quote</span>
               </div>
               <h2 className="font-heading text-xl md:text-2xl font-semibold text-[#0D212C] tracking-tight">
-                Get a Free Cleaning Estimate
+                Request a Custom Quote
               </h2>
               <p className="text-[11px] sm:text-xs text-[#273C46] mt-0.5">
                 We beat any insured & bonded competitor’s written price in San Antonio.
@@ -198,13 +160,13 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
                   onChange={(e) => setServiceType(e.target.value)}
                   className="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#051A24] bg-slate-50 text-[#051A24]"
                 >
-                  <option value="Initial Cleaning">Initial Cleaning ($50/hr)</option>
-                  <option value="Recurring Maintenance">Recurring Maintenance ($45/hr)</option>
-                  <option value="Cleanouts & Make-Ready's">Cleanouts & Make-Ready's ($55/hr)</option>
-                  <option value="Short Term Rentals (B&B)">Short Term Rentals (B&B) ($48/hr)</option>
-                  <option value="Extra & Maid Services">Extra & Maid Services ($45/hr)</option>
-                  <option value="Lawn Care">Lawn Care ($55/hr)</option>
-                  <option value="Carpet Cleaning">Carpet Cleaning ($60/hr)</option>
+                  <option value="Initial Cleaning">Initial Cleaning</option>
+                  <option value="Recurring Maintenance">Recurring Maintenance</option>
+                  <option value="Cleanouts & Make-Ready's">Cleanouts & Make-Ready's</option>
+                  <option value="Short Term Rentals (B&B)">Short Term Rentals (B&B)</option>
+                  <option value="Extra & Maid Services">Extra & Maid Services</option>
+                  <option value="Lawn Care">Lawn Care</option>
+                  <option value="Carpet Cleaning">Carpet Cleaning</option>
                 </select>
               </div>
 
@@ -252,33 +214,33 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
                 </span>
               </label>
 
-              {/* Live Hourly Estimate Card */}
+              {/* Lead-Gen Trust Summary Card */}
               <div className="bg-[#051A24] text-white rounded-xl p-3 flex flex-col gap-2 shadow-inner">
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="text-[10px] text-[#E0EBF0]/70 font-mono uppercase">
-                      Estimated Time & Rate
+                      Selected Plan
                     </span>
                     <div className="text-sm font-semibold text-white font-mono">
-                      ~{estimate.estimatedHours} hrs @ ${estimate.hourlyRate} / Hour
+                      {serviceType}
                     </div>
                   </div>
                   <div className="text-right">
                     <span className="text-[10px] text-[#E0EBF0]/70 font-mono uppercase block">
-                      Estimated Total
+                      Estimate Status
                     </span>
-                    <div className="text-lg sm:text-xl font-bold tracking-tight text-white font-mono">
-                      ${estimate.low} – ${estimate.high}
+                    <div className="text-sm sm:text-base font-bold tracking-tight text-emerald-300 font-mono">
+                      Custom Quote
                     </div>
                   </div>
                 </div>
 
                 <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px]">
-                  <span className="text-amber-300 font-mono font-medium">
-                    *2-hour minimum applies to all services*
+                  <span className="text-slate-300 font-mono">
+                    Customized to fit your home's unique needs
                   </span>
                   <span className="inline-flex items-center gap-1 text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-mono">
-                    <RealisticSparklesIcon className="w-3 h-3" /> Hourly Rate
+                    <RealisticSparklesIcon className="w-3 h-3" /> Free Quote
                   </span>
                 </div>
               </div>

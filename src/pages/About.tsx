@@ -211,7 +211,7 @@ export const About: React.FC<AboutPageProps> = ({
                 onClick={() => onOpenEstimate('Initial Deep Clean')}
                 className="w-full sm:w-auto shadow-md"
               >
-                Get a Free Estimate
+                Get Your Free Estimate
               </Button>
             </div>
           </div>
@@ -354,7 +354,7 @@ export const About: React.FC<AboutPageProps> = ({
                 onClick={() => onOpenEstimate('Guarantee Program')}
                 className="bg-white !text-[#051A24] hover:!bg-[#F6FCFF] shadow-sm"
               >
-                Get Estimate
+                Request a Custom Quote
               </Button>
             </div>
           </div>

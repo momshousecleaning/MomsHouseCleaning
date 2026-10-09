@@ -208,7 +208,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="w-full min-h-[48px] py-3.5 px-6 rounded-full font-bold text-center text-sm md:text-base text-white bg-[#051A24] hover:bg-[#0D212C] shadow-lg flex items-center justify-center gap-2 active:scale-[0.98] transition-transform cursor-pointer focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#051A24]"
             >
               <RealisticSparklesIcon className="w-4 h-4" />
-              <span>Get a Free Estimate</span>
+              <span>Get Your Free Estimate</span>
             </button>
 
             <a

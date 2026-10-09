@@ -160,12 +160,12 @@ export const SERVICE_CHECKLISTS: Record<string, ChecklistCategory[]> = {
     {
       category: 'Linens & Laundry',
       items: [
-        'Wash and dry towels/linens (2 loads included, $15 per extra load).',
+        'Wash and dry towels/linens (loads included upon request).',
         'Put fresh linens on beds.',
         'Wash dishes and empty dishwasher.',
       ],
       rawText:
-        'Linens & Laundry: Wash and dry towels/linens (2 loads included, $15 per extra load). Put fresh linens on beds. Wash dishes and empty dishwasher.',
+        'Linens & Laundry: Wash and dry towels/linens (loads included upon request). Put fresh linens on beds. Wash dishes and empty dishwasher.',
     },
     {
       category: 'Standard Cleaning',
@@ -418,7 +418,7 @@ export const ServiceChecklistModal: React.FC<ServiceChecklistModalProps> = ({
               }}
               className="w-1/2 sm:w-auto flex items-center justify-center gap-1.5 shadow-sm"
             >
-              <span>Request Estimate</span>
+              <span>Request a Custom Quote</span>
               <RealisticSparklesIcon className="w-3.5 h-3.5 text-blue-200" />
             </Button>
           </div>

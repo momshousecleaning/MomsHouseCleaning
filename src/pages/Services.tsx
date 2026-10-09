@@ -18,7 +18,6 @@ export interface ServiceCategory {
   description: string;
   items?: string[];
   bullets?: string[];
-  hourlyRate?: string;
 }
 
 // FEATURED BLOCK: High-revenue specializations rendered in dark mode at top
@@ -26,7 +25,6 @@ export const featuredServicesData: ServiceCategory[] = [
   {
     id: 'lawn-care',
     title: 'Lawn Care',
-    hourlyRate: '$55 / Hour',
     description: 'Lawn mowing, edging, and outdoor debris yard cleanup.',
     items: [
       'Precision lawn mowing and curb edging.',
@@ -39,7 +37,6 @@ export const featuredServicesData: ServiceCategory[] = [
   {
     id: 'carpet-cleaning',
     title: 'Carpet Cleaning',
-    hourlyRate: '$60 / Hour',
     description: 'Deep steam extraction to restore and revitalize carpets.',
     items: [
       'Commercial hot water steam fiber extraction.',
@@ -56,7 +53,6 @@ export const standardServicesData: ServiceCategory[] = [
   {
     id: 'initial-cleaning',
     title: 'Initial Cleaning',
-    hourlyRate: '$50 / Hour',
     description: 'Deep, top-to-bottom sanitization to establish a spotless baseline.',
     bullets: [
       'Bathrooms & Kitchens Deep Clean',
@@ -67,7 +63,6 @@ export const standardServicesData: ServiceCategory[] = [
   {
     id: 'recurring-maintenance',
     title: 'Recurring Maintenance',
-    hourlyRate: '$45 / Hour',
     description: 'Weekly, bi-weekly, or monthly upkeep for your home.',
     bullets: [
       'High-Touch Disinfection',
@@ -78,7 +73,6 @@ export const standardServicesData: ServiceCategory[] = [
   {
     id: 'cleanouts-make-readys',
     title: "Cleanouts & Make-Ready's",
-    hourlyRate: '$55 / Hour',
     description: 'Thorough detailing tailored for move-ins and move-outs.',
     bullets: [
       'Inside Cabinets & Drawers',
@@ -89,7 +83,6 @@ export const standardServicesData: ServiceCategory[] = [
   {
     id: 'short-term-rentals',
     title: 'Short Term Rentals (B&B)',
-    hourlyRate: '$48 / Hour',
     description: 'Turnkey turnover cleaning for 5-star Airbnb hosts.',
     bullets: [
       'Restocking Paper Goods & Soap',
@@ -100,7 +93,6 @@ export const standardServicesData: ServiceCategory[] = [
   {
     id: 'extra-maid-services',
     title: 'Extra & Maid Services',
-    hourlyRate: '$45 / Hour',
     description: 'Custom add-on tasks to handle your specific chores.',
     bullets: [
       'Laundry, Dishes & Bed Making',
@@ -248,18 +240,18 @@ const FeaturedServiceCard: React.FC<FeaturedServiceCardProps> = ({
         )}
       </div>
 
-      {/* Hourly Pricing & Minimum Disclaimer */}
-      <div className="pt-5 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 mt-4">
+      {/* Friction-reducing Trust Copy */}
+      <div className="pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 mt-4">
         <div>
-          <span className="text-xl sm:text-2xl font-bold font-mono text-white tracking-tight">
-            {service.hourlyRate || '$55 / Hour'}
+          <span className="text-lg sm:text-xl font-bold text-white tracking-tight font-heading">
+            Personalized Consultation
           </span>
           <span className="block text-[10px] font-mono uppercase tracking-wider text-blue-300">
-            Dedicated Hourly Rate
+            Customized to fit your home's unique needs
           </span>
         </div>
-        <span className="text-[11px] sm:text-xs text-blue-200/90 font-mono italic">
-          *2-hour minimum applies to all services*
+        <span className="text-[11px] sm:text-xs text-blue-200 font-mono">
+          Reach out for a personalized consultation
         </span>
       </div>
 
@@ -271,7 +263,7 @@ const FeaturedServiceCard: React.FC<FeaturedServiceCardProps> = ({
           onClick={() => onRequestEstimate(service.title)}
           className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm md:text-base shadow-lg transition-all cursor-pointer active:scale-[0.98]"
         >
-          <span>Request Estimate</span>
+          <span>Request a Custom Quote</span>
           <RealisticSparklesIcon className="w-4 h-4 text-blue-200" />
         </button>
       </div>
@@ -402,18 +394,18 @@ const StandardServiceCard: React.FC<StandardServiceCardProps> = ({
         )}
       </div>
 
-      {/* Hourly Pricing & Minimum Disclaimer */}
+      {/* Friction-reducing Trust Copy */}
       <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mt-4">
         <div>
-          <span className="text-lg sm:text-xl font-bold font-mono text-slate-900 tracking-tight">
-            {service.hourlyRate || '$45 / Hour'}
+          <span className="text-base sm:text-lg font-bold text-slate-900 tracking-tight font-heading">
+            Tailored Service Plan
           </span>
           <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-500">
-            Transparent Hourly Rate
+            Transparent estimates based on your specific requirements
           </span>
         </div>
-        <span className="text-[11px] text-slate-500 font-mono italic">
-          *2-hour minimum applies to all services*
+        <span className="text-[11px] text-slate-500 font-mono">
+          Customized to fit your home's unique needs
         </span>
       </div>
 
@@ -425,7 +417,7 @@ const StandardServiceCard: React.FC<StandardServiceCardProps> = ({
           onClick={() => onRequestEstimate(service.title)}
           className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#051A24] hover:bg-[#0D212C] text-white text-xs sm:text-sm font-semibold tracking-wide transition-all shadow-sm hover:shadow cursor-pointer active:scale-[0.98]"
         >
-          <span>Request Estimate</span>
+          <span>Get Your Free Estimate</span>
           <RealisticSparklesIcon className="w-3.5 h-3.5 text-blue-200" />
         </button>
       </div>
@@ -550,11 +542,11 @@ export const Services: React.FC<ServicesPageProps> = ({
             onClick={() => handleRequestEstimate('Initial Cleaning')}
             className="shadow-md"
           >
-            Get a Free Estimate
+            Get Your Free Estimate
           </Button>
         </div>
 
-        {/* Hourly Rate Banner */}
+        {/* Personalized Consultation Banner */}
         <div
           style={{ animationDelay: '0.35s' }}
           className={`mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs sm:text-sm font-medium will-change-transform ${
@@ -562,7 +554,7 @@ export const Services: React.FC<ServicesPageProps> = ({
           }`}
         >
           <RealisticSparklesIcon className="w-4 h-4 text-blue-600" />
-          <span>Straightforward Hourly Rates • <strong>*2-hour minimum applies to all services*</strong></span>
+          <span>Personalized Estimates • <strong>Customized to fit your home's unique needs</strong></span>
         </div>
       </section>
 

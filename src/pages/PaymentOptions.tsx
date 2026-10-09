@@ -324,7 +324,7 @@ export const PaymentOptions: React.FC<PaymentOptionsProps> = ({
             onClick={onNavigateContact}
             className="bg-white text-[#051A24] font-medium px-8 py-3 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.06)] border border-slate-100 hover:shadow-md hover:bg-slate-50 transition-all cursor-pointer text-sm font-body"
           >
-            Contact Us for a FREE estimate.
+            Get Your Free Estimate
           </button>
           <div className="flex items-center gap-1.5 text-xs font-mono text-[#051A24]/60 mt-1">
             <RealisticLockIcon className="w-3.5 h-3.5" />

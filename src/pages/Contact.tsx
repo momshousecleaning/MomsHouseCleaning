@@ -363,11 +363,11 @@ export const Contact: React.FC<ContactPageProps> = ({
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tell us about your home (bedrooms, bathrooms, estimated hours needed, specific priorities)..."
+                    placeholder="Tell us about your home (bedrooms, bathrooms, specific priorities, scheduling preferences)..."
                     className="bg-[#F6FCFF] border-b-2 border-[#0D212C]/10 focus:border-[#051A24] rounded-t-lg p-4 text-sm text-[#051A24] placeholder:text-[#273C46]/40 focus:outline-none transition-colors resize-y"
                   />
                   <span className="text-[11px] font-mono text-slate-500 italic mt-0.5">
-                    *2-hour minimum applies to all services*
+                    Customized to fit your home's unique needs
                   </span>
                 </div>
 
@@ -381,10 +381,10 @@ export const Contact: React.FC<ContactPageProps> = ({
                   className="w-full mt-2 shadow-md"
                   icon={<RealisticSendIcon className="w-4 h-4" />}
                 >
-                  {isSubmitting ? 'Sending Request...' : 'Get a Free Estimate'}
+                  {isSubmitting ? 'Sending Request...' : 'Request a Custom Quote'}
                 </Button>
                 <p className="text-[11px] font-mono text-slate-500 text-center mt-1">
-                  Simple hourly billing • *2-hour minimum applies to all services*
+                  Transparent estimates based on your specific requirements • Free personalized consultation
                 </p>
               </form>
             )}

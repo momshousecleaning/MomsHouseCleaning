@@ -98,7 +98,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             onClick={onOpenEstimate}
             className="w-full sm:w-auto bg-white text-[#051A24] rounded-full px-4 py-2.5 text-sm md:px-8 md:py-4 md:text-xl font-bold shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:scale-105 transition-transform cursor-pointer select-none whitespace-nowrap text-center active:scale-[0.98]"
           >
-            Get a Free Estimate
+            Get Your Free Estimate
           </button>
           <button
             id="hero-btn-services"

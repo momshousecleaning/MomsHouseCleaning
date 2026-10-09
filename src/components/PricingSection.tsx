@@ -21,9 +21,9 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
       className="w-full py-8 px-4 md:py-24 md:px-12"
     >
       <div className="w-full mx-auto flex flex-col items-center">
-        {/* Hourly Billing Notice */}
+        {/* Trust & Custom Care Notice */}
         <div className="mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 text-slate-800 text-xs font-mono font-medium border border-slate-200/80">
-          <span>Simple Hourly Billing • <strong>*2-hour minimum applies to all services*</strong></span>
+          <span>Personalized Cleaning Plans • <strong>Customized to fit your home's unique needs</strong></span>
         </div>
 
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
@@ -62,23 +62,23 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
             </div>
 
             <div>
-              {/* Hourly Price & Disclaimer */}
+              {/* Friction-Reducing Trust Microcopy */}
               <div className="mb-4 md:mb-6 pt-4 border-t border-white/10 flex flex-col gap-1.5">
                 <div className="flex items-baseline justify-between">
                   <div>
-                    <span className="block text-2xl sm:text-3xl font-bold text-[#F6FCFF] tracking-tight font-mono">
-                      $50 / Hour
+                    <span className="block text-xl sm:text-2xl font-bold text-[#F6FCFF] tracking-tight font-heading">
+                      Personalized Quote
                     </span>
                     <span className="text-[10px] sm:text-xs text-[#E0EBF0]/70 uppercase tracking-wider font-mono">
-                      Hourly Rate • One-time Baseline
+                      One-time baseline reset
                     </span>
                   </div>
                   <span className="text-[10px] font-mono uppercase bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full border border-emerald-500/30">
-                    Transparent
+                    Free Consultation
                   </span>
                 </div>
-                <p className="text-[11px] sm:text-xs text-amber-300 font-mono italic">
-                  *2-hour minimum applies to all services*
+                <p className="text-[11px] sm:text-xs text-slate-300 font-mono">
+                  Customized to fit your home's unique needs
                 </p>
               </div>
 
@@ -91,7 +91,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
                   onClick={() => onOpenEstimate('Initial Cleaning')}
                   className="!bg-white !text-[#051A24] hover:!bg-[#EAF2F6] shadow-md border border-white w-full sm:w-auto text-center justify-center"
                 >
-                  Get Estimate
+                  Request a Custom Quote
                 </Button>
                 <button
                   id="btn-deep-clean-checklist"
@@ -141,23 +141,23 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
             </div>
 
             <div>
-              {/* Hourly Price & Disclaimer */}
+              {/* Friction-Reducing Trust Microcopy */}
               <div className="mb-4 md:mb-6 pt-4 border-t border-slate-100 flex flex-col gap-1.5">
                 <div className="flex items-baseline justify-between">
                   <div>
-                    <span className="block text-2xl sm:text-3xl font-bold text-[#0D212C] tracking-tight font-mono">
-                      $45 / Hour
+                    <span className="block text-xl sm:text-2xl font-bold text-[#0D212C] tracking-tight font-heading">
+                      Tailored Service Plan
                     </span>
                     <span className="text-[10px] sm:text-xs text-[#273C46]/70 uppercase tracking-wider font-mono">
-                      Hourly Rate • Ongoing Upkeep
+                      Weekly, bi-weekly, or monthly
                     </span>
                   </div>
                   <span className="text-[10px] font-mono uppercase bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full border border-blue-200">
                     Best Value
                   </span>
                 </div>
-                <p className="text-[11px] sm:text-xs text-amber-700 font-mono italic">
-                  *2-hour minimum applies to all services*
+                <p className="text-[11px] sm:text-xs text-slate-500 font-mono">
+                  Transparent estimates based on your specific requirements
                 </p>
               </div>
 
@@ -170,7 +170,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
                   onClick={() => onOpenEstimate('Recurring Maintenance')}
                   className="w-full sm:w-auto text-center justify-center"
                 >
-                  Get Estimate
+                  Get Your Free Estimate
                 </Button>
               </div>
             </div>

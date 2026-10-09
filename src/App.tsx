@@ -161,7 +161,7 @@ export default function App() {
 
   const handleOpenEstimate = (serviceType: string = 'Initial Cleaning') => {
     setSelectedService(serviceType);
-    setIsEstimateOpen(true);
+    navigateTo('contact');
   };
 
   const handleScrollToTestimonials = () => {

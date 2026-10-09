@@ -66,7 +66,7 @@ export const GuaranteeDiscountSection: React.FC<GuaranteeDiscountSectionProps> =
                 onClick={() => onOpenEstimate('Guarantee Assurance')}
                 className="bg-white !text-[#051A24] hover:!bg-[#F6FCFF] shadow-md border-t-0 w-full sm:w-auto text-center justify-center"
               >
-                Get Protected Clean
+                Request a Custom Quote
               </Button>
             </div>
           </div>
@@ -117,7 +117,7 @@ export const GuaranteeDiscountSection: React.FC<GuaranteeDiscountSectionProps> =
                 onClick={() => onOpenEstimate('Hero / Senior Discount')}
                 className="w-full sm:w-auto text-center justify-center"
               >
-                Claim Discount
+                Contact for Pricing
               </Button>
             </div>
           </div>
