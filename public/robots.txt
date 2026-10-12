@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Allow: /*.css$
+Allow: /*.js$
 
 Sitemap: https://www.momshousecleaning.com/sitemap.xml

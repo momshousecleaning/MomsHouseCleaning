@@ -20,41 +20,65 @@
       ]
     }
   ],
-  "redirects": [
+  "routes": [
     {
-      "source": "/:path*",
+      "src": "/.*",
       "has": [
         {
-          "type": "host",
-          "value": "momshousecleaning.com"
+          "type": "query",
+          "key": "u"
         }
       ],
-      "destination": "https://www.momshousecleaning.com/:path*",
-      "permanent": true
+      "status": 410
     },
     {
-      "source": "/services",
-      "destination": "/our-services/",
-      "permanent": true
+      "src": "/.*",
+      "has": [
+        {
+          "type": "query",
+          "key": "p"
+        }
+      ],
+      "status": 410
     },
     {
-      "source": "/contact",
-      "destination": "/contact-us/",
-      "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/sitemap.xml",
-      "destination": "/sitemap.xml"
+      "src": "^/(?:de|tr|sv|zh|pl|pt|fr|fi|es|no|nl)(?:/.*)?$",
+      "status": 410
     },
     {
-      "source": "/robots.txt",
-      "destination": "/robots.txt"
+      "src": "^/(?:index\\.php|index\\.jsp)$",
+      "status": 301,
+      "headers": {
+        "Location": "/"
+      }
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "^/about-us/?$",
+      "status": 301,
+      "headers": {
+        "Location": "/about/"
+      }
+    },
+    {
+      "src": "^/services/?$",
+      "status": 301,
+      "headers": {
+        "Location": "/our-services/"
+      }
+    },
+    {
+      "src": "^/contact/?$",
+      "status": 301,
+      "headers": {
+        "Location": "/contact-us/"
+      }
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
