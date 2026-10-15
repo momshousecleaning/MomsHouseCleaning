@@ -11,6 +11,7 @@ import { Footer } from '../components/Footer';
 import { CopyrightBar } from '../components/CopyrightBar';
 import { BottomNav } from '../components/BottomNav';
 import { SERVICE_CHECKLISTS } from '../components/ServiceChecklistModal';
+import { NextdoorAwardBanner } from '../components/NextdoorAwardBanner';
 
 export interface ServiceCategory {
   id: string;
@@ -557,6 +558,9 @@ export const Services: React.FC<ServicesPageProps> = ({
           <span>Personalized Estimates • <strong>Customized to fit your home's unique needs</strong></span>
         </div>
       </section>
+
+      {/* 2026 NEXTDOOR FAVE WINNER SHOWCASE BANNER */}
+      <NextdoorAwardBanner onOpenEstimate={handleRequestEstimate} className="mb-8 w-full" />
 
       {/* TASK 2: MAINTAIN THE FEATURED BLOCK (DARK MODE AT TOP) */}
       <section

@@ -61,16 +61,41 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           San Antonio Area House Cleaning Service • Family Owned Since 1999
         </p>
 
-        {/* Primary Semantic H1 for Homepage SEO */}
-        <h1
-          id="hero-main-title"
-          style={{ animationDelay: '0.3s' }}
-          className={`font-heading text-2xl sm:text-3xl md:text-[38px] lg:text-[44px] leading-[1.2] md:leading-[1.15] text-white font-bold tracking-tight max-w-3xl mb-3 will-change-transform ${
-            isInView ? 'animate-fade-in-up' : 'opacity-0'
-          }`}
-        >
-          Top-Rated House Cleaning & Maid Services in San Antonio, TX
-        </h1>
+        {/* Main Heading Container with Relative Anchor for Tilted Badge */}
+        <div className="relative w-full max-w-3xl mx-auto flex flex-col items-center">
+          {/* TASK 2: TILTED STICKER INJECTION (Tablet & Desktop: Left of "Top-Rated") */}
+          <div className="absolute -left-4 md:-left-12 lg:-left-14 top-1/2 -translate-y-1/2 z-20 hidden sm:block pointer-events-none">
+            <img
+              src="/awards2026.png"
+              alt="2026 Nextdoor Fave Winner"
+              className="w-20 md:w-28 h-20 md:h-28 object-contain transform -rotate-6 hover:rotate-0 transition-transform duration-300 drop-shadow-2xl pointer-events-auto"
+            />
+          </div>
+
+          {/* TASK 3: MOBILE ALIGNMENT FALLBACK (Narrow 375px screens: Centered Pill) */}
+          <div className="sm:hidden flex items-center justify-center gap-2 mb-2">
+            <img
+              src="/awards2026.png"
+              alt="2026 Nextdoor Fave Winner"
+              className="w-[100px] h-[100px] object-contain transform -rotate-6 drop-shadow-lg shrink-0"
+              style={{ width: '100px', height: '100px' }}
+            />
+            <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-300 bg-emerald-950/80 border border-emerald-500/40 px-2.5 py-1 rounded-full font-bold">
+              2026 Nextdoor Fave Winner
+            </span>
+          </div>
+
+          {/* Primary Semantic H1 for Homepage SEO */}
+          <h1
+            id="hero-main-title"
+            style={{ animationDelay: '0.3s' }}
+            className={`font-heading text-2xl sm:text-3xl md:text-[38px] lg:text-[44px] leading-[1.2] md:leading-[1.15] text-white font-bold tracking-tight max-w-3xl mb-3 will-change-transform ${
+              isInView ? 'animate-fade-in-up' : 'opacity-0'
+            }`}
+          >
+            Top-Rated House Cleaning & Maid Services in San Antonio, TX
+          </h1>
+        </div>
 
         {/* Description Paragraph */}
         <div

@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  RealisticCheckCircle2Icon,
-  RealisticAwardIcon,
-  RealisticTrophyIcon,
-  RealisticStarIcon,
-  RealisticShieldIcon,
-} from './RealisticIcons';
+import { RealisticCheckCircle2Icon } from './RealisticIcons';
 import { useInViewAnimation } from '../hooks/useInViewAnimation';
 import logo01 from '../images/logo01.webp';
 import logo02 from '../images/logo02.webp';
@@ -21,31 +15,39 @@ const PEACE_OF_MIND_ITEMS = [
 
 const AWARDS = [
   {
+    id: 'angies-2019',
     title: "Angie's List 2019 Super Service Award",
     year: '2019',
     badge: 'Super Service',
-    icon: RealisticStarIcon,
+    badgeClass: 'bg-amber-50 text-amber-800 border-amber-200',
+    subtitle: 'Verified customer satisfaction & excellence',
     image: logo01,
   },
   {
+    id: 'homeadvisor-2021',
     title: 'Best of Home Advisor 2021 Award',
     year: '2021',
     badge: 'Top Rated',
-    icon: RealisticTrophyIcon,
+    badgeClass: 'bg-blue-50 text-blue-800 border-blue-200',
+    subtitle: 'Top-rated local home cleaning provider',
     image: logo02,
   },
   {
+    id: 'best-texas-2024',
     title: 'Best Texas Cleaning Service in 2024',
     year: '2024',
     badge: 'State Winner',
-    icon: RealisticAwardIcon,
+    badgeClass: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+    subtitle: 'Statewide housekeeping & maid excellence',
     image: logo03,
   },
   {
+    id: 'best-sa-2024',
     title: 'Best San Antonio Cleaning Service in 2024',
     year: '2024',
     badge: 'City #1',
-    icon: RealisticShieldIcon,
+    badgeClass: 'bg-indigo-50 text-indigo-800 border-indigo-200',
+    subtitle: 'Voted #1 house cleaning in Bexar County',
     image: logo04,
   },
 ];
@@ -57,7 +59,7 @@ export const PeaceOfMindSection: React.FC = () => {
     <section
       id="peace-of-mind-section"
       ref={ref}
-      className="w-full py-8 px-4 md:py-24 md:px-12 mx-auto"
+      className="w-full py-8 px-4 md:py-24 md:px-12 mx-auto max-w-7xl"
     >
       <div className="flex flex-col mb-6 md:mb-10">
         <span
@@ -79,85 +81,145 @@ export const PeaceOfMindSection: React.FC = () => {
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 lg:gap-12 items-stretch">
-        {/* Left Column: Protection Checklist */}
+      <div className="flex flex-col gap-8 md:gap-12">
+        {/* Protection Checklist Container */}
         <div
           id="peace-checklist-container"
           style={{ animationDelay: '0.3s' }}
-          className={`lg:col-span-6 bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm flex flex-col justify-between ${
+          className={`w-full bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 ${
             isInView ? 'animate-fade-in-up' : 'opacity-0'
           }`}
         >
-          <div>
-            <h3 className="font-heading text-xl sm:text-2xl font-semibold text-slate-900 mb-4 md:mb-6">
+          <div className="md:w-1/3">
+            <h3 className="font-heading text-xl sm:text-2xl font-semibold text-slate-900 mb-2">
               Full Protection Standards
             </h3>
-            <ul className="space-y-3 sm:space-y-4">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-body">
+              Fully licensed, bonded, insured, and registered with Bexar County for complete homeowner security.
+            </p>
+            <div className="mt-4 flex items-center gap-2 text-xs font-mono text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full w-fit font-semibold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>100% Bonded & Insured</span>
+            </div>
+          </div>
+
+          <div className="md:w-2/3 border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-8">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {PEACE_OF_MIND_ITEMS.map((item, index) => (
                 <li
                   key={index}
                   id={`peace-item-${index}`}
-                  className="flex items-start gap-3 text-sm sm:text-base text-slate-800 leading-relaxed"
+                  className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-800 leading-relaxed bg-slate-50/70 p-3 rounded-xl border border-slate-100/90"
                 >
-                  <RealisticCheckCircle2Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5" />
-                  <span className="font-medium">{item}</span>
+                  <RealisticCheckCircle2Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 text-emerald-600 mt-0.5" />
+                  <span className="font-medium font-body">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
-
-          <div className="mt-6 md:mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-600">
-            <span>Continuous Compliance</span>
-            <span className="text-slate-900 font-semibold">100% Bonded & Insured</span>
-          </div>
         </div>
 
-        {/* Right Column: Awards List */}
-        <div
-          id="awards-list-container"
-          style={{ animationDelay: '0.4s' }}
-          className={`lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6 ${
-            isInView ? 'animate-fade-in-up' : 'opacity-0'
-          }`}
-        >
-          {AWARDS.map((award, index) => {
-            const IconComponent = award.icon;
-            return (
+        {/* TASK 2 & 3: EXPANDED 5-CARD AWARDS GRID */}
+        <div>
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="font-heading text-lg sm:text-xl font-bold text-slate-900">
+              Verified Industry & Community Awards
+            </h3>
+            <span className="text-xs font-mono text-slate-500 uppercase tracking-widest hidden sm:inline-block">
+              5 Recognized Honors
+            </span>
+          </div>
+
+          <div
+            id="awards-list-container"
+            style={{ animationDelay: '0.4s' }}
+            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ${
+              isInView ? 'animate-fade-in-up' : 'opacity-0'
+            }`}
+          >
+            {/* Cards 1 to 4: Existing Awards matching structural DNA */}
+            {AWARDS.map((award, index) => (
               <div
-                key={index}
+                key={award.id}
                 id={`award-card-${index}`}
-                className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.04)] flex flex-col justify-between hover:shadow-md transition-shadow"
+                className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between relative"
               >
-                <div className="flex items-start justify-between gap-2 mb-3">
-                  {award.image ? (
-                    <div className="w-[120px] sm:w-[150px] md:w-[180px] h-[100px] sm:h-[130px] md:h-[150px] p-2 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden shrink-0">
-                      <img
-                        src={award.image}
-                        alt={award.title}
-                        className="w-full h-full object-contain"
-                        referrerPolicy="no-referrer"
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-[120px] sm:w-[150px] md:w-[180px] h-[100px] sm:h-[130px] md:h-[150px] p-4 rounded-2xl bg-slate-100 text-[#051A24] flex items-center justify-center shrink-0">
-                      <IconComponent className="w-12 h-12" />
-                    </div>
-                  )}
-                  <span className="font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-[#051A24] bg-slate-100 px-2 py-0.5 rounded-full">
-                    {award.badge}
-                  </span>
+                {/* Badge Pill (Top Right) */}
+                <span
+                  className={`absolute top-4 right-4 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${
+                    award.badgeClass || 'bg-slate-50 text-slate-700 border-slate-200'
+                  }`}
+                >
+                  {award.badge}
+                </span>
+
+                {/* Centered Square Badge Image */}
+                <div className="flex items-center justify-center my-3">
+                  <img
+                    src={award.image}
+                    alt={award.title}
+                    className="h-28 w-28 object-contain mx-auto my-3"
+                    loading="lazy"
+                  />
                 </div>
+
+                {/* Content */}
                 <div>
-                  <h4 className="font-semibold text-xs sm:text-sm md:text-base text-[#0D212C] leading-snug tracking-tight mb-1">
+                  <h4 className="font-heading text-base font-bold text-gray-900 mt-2">
                     {award.title}
                   </h4>
-                  <span className="font-mono text-[10px] sm:text-xs text-[#273C46]/70">
-                    Recognized Excellence
+                  <p className="text-xs text-gray-500 mt-1 font-body">
+                    {award.subtitle}
+                  </p>
+                  <span className="text-xs font-medium text-slate-400 mt-3 inline-block">
+                    Verified Recognition
                   </span>
                 </div>
               </div>
-            );
-          })}
+            ))}
+
+            {/* Card 5: Nextdoor 2026 Award Card */}
+            <div
+              id="award-card-nextdoor-2026"
+              className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between relative"
+            >
+              {/* Badge Pill (Top Right) */}
+              <span className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full border border-emerald-100">
+                Neighborhood Fave
+              </span>
+
+              {/* Image Container: Centered square badge image */}
+              <div className="flex items-center justify-center my-3">
+                <img
+                  src="/awards2026.png"
+                  alt="2026 Nextdoor Fave Winner"
+                  className="h-28 w-28 object-contain mx-auto my-3"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Title & Subtitle */}
+              <div>
+                <h4 className="font-heading text-base font-bold text-gray-900 mt-2">
+                  2026 Nextdoor Fave Winner
+                </h4>
+                <p className="text-xs text-gray-500 mt-1 font-body">
+                  Voted by neighbors on Nextdoor
+                </p>
+
+                {/* Footer Link */}
+                <a
+                  href="https://nextdoor.com/fave_awards_winners"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-semibold text-emerald-600 hover:underline mt-3 inline-flex items-center gap-1"
+                >
+                  <span>Verify on Nextdoor</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -85,6 +85,20 @@ export const Navbar: React.FC<NavbarProps> = ({
       className="fixed top-0 left-0 right-0 z-[100] bg-[#F4F9FF]/90 backdrop-blur-xl border-b border-[#051A24]/10 transition-all duration-300"
       aria-label="Main Navigation"
     >
+      {/* GLOBAL TOP ANNOUNCEMENT BAR */}
+      <div className="w-full bg-[#1B8751] text-white py-2 px-4 text-xs sm:text-sm font-medium flex items-center justify-center gap-2 text-center">
+        <span>🏆 2026 Nextdoor Fave Winner — Voted by neighbors on Nextdoor in San Antonio!</span>
+        <a
+          href="https://nextdoor.com/fave_awards_winners"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline font-semibold ml-1 hover:text-emerald-100 inline-flex items-center gap-1"
+        >
+          <span>Verify on Nextdoor</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
       <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 h-20 flex items-center justify-between">
         {/* LEFT SIDE (LOGO) */}
         <button
@@ -151,7 +165,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           role="dialog"
           aria-modal="true"
           aria-label="Mobile Navigation Menu"
-          className="fixed inset-x-0 top-20 h-[calc(100dvh-5rem)] md:hidden bg-[#F4F9FF] backdrop-blur-2xl px-5 sm:px-6 py-6 shadow-2xl flex flex-col justify-between overflow-y-auto overscroll-contain border-t border-[#051A24]/10 z-[150]"
+          className="fixed inset-x-0 top-[116px] h-[calc(100dvh-116px)] md:hidden bg-[#F4F9FF] backdrop-blur-2xl px-5 sm:px-6 py-6 shadow-2xl flex flex-col justify-between overflow-y-auto overscroll-contain border-t border-[#051A24]/10 z-[150]"
         >
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between px-2 pb-2">

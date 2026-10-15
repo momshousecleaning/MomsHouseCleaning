@@ -13,6 +13,7 @@ import { useInViewAnimation } from '../hooks/useInViewAnimation';
 import { Footer } from '../components/Footer';
 import { CopyrightBar } from '../components/CopyrightBar';
 import { BottomNav } from '../components/BottomNav';
+import { NextdoorAwardBanner } from '../components/NextdoorAwardBanner';
 import img01 from '../images/01.webp';
 
 interface AboutAudioPlayerProps {
@@ -237,6 +238,9 @@ export const About: React.FC<AboutPageProps> = ({
           </div>
         </div>
       </section>
+
+      {/* 2026 NEXTDOOR FAVE WINNER SHOWCASE BANNER */}
+      <NextdoorAwardBanner onOpenEstimate={onOpenEstimate} className="my-8 w-full" />
 
       {/* TASK 3: MEDIA & SPONSORSHIPS (AUDIO CARDS) */}
       <section

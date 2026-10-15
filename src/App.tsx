@@ -203,8 +203,8 @@ export default function App() {
           onOpenEstimate={() => handleOpenEstimate('General Inquiries')} 
         />
 
-        {/* Main Content Area with top offset for fixed navbar */}
-        <div className="w-full pt-20 flex flex-col items-center">
+        {/* Main Content Area with top offset for fixed navbar & announcement bar */}
+        <div className="w-full pt-[116px] flex flex-col items-center">
           {currentRoute === 'services' ? (
             <Services
               onNavigateHome={() => navigateTo('home')}
